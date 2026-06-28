@@ -1,4 +1,5 @@
 import type { NavItem, ArrangementItem, ServiceItem, InstagramPost } from "./types";
+import { images } from "./images";
 
 /** International format, digits only — Manaus area (92). */
 const WHATSAPP_NUMBER = "5592999999999";
@@ -59,12 +60,7 @@ export const siteContent = {
       label: "Encomendar pelo WhatsApp",
       href: getWhatsAppUrl("Olá! Gostaria de saber mais sobre as peças de decoração."),
     },
-    image: {
-      src: "https://images.unsplash.com/photo-1466781783364-ae644c367114?auto=format&fit=crop&w=1200&q=80",
-      alt: "Folhagens tropicais e plantas em ambiente acolhedor",
-      width: 1200,
-      height: 800,
-    },
+    image: images.heroTerracotta,
   },
   arrangements: {
     id: "pecas",
@@ -76,28 +72,19 @@ export const siteContent = {
         title: "Cesto Amazônia",
         description:
           "Cestaria local com bromélias, samambaias e folhagens de sub-bosque — textura e calor para salas e varandas.",
-        image: {
-          src: "https://images.unsplash.com/photo-1592159219834-35234473d265?auto=format&fit=crop&w=600&q=80",
-          alt: "Arranjo em cesto de palha com plantas tropicais",
-        },
+        image: images.arrangementCenterpiece,
       },
       {
         title: "Centro Selva",
         description:
           "Centro de mesa com cipós pendentes, musgos e flores da estação — artesanal e vivo.",
-        image: {
-          src: "https://images.unsplash.com/photo-1561181286-d352f7b79879?auto=format&fit=crop&w=600&q=80",
-          alt: "Centro de mesa floral artesanal",
-        },
+        image: images.arrangementWhite,
       },
       {
         title: "Suculentas & Trama",
         description:
           "Mini composição em cestinho trançado — ideal para prateleiras, mesas de cabeceira e home office.",
-        image: {
-          src: "https://images.unsplash.com/photo-1459411550354-405e96163c72?auto=format&fit=crop&w=600&q=80",
-          alt: "Suculentas em composição artesanal",
-        },
+        image: images.arrangementSucculent,
       },
     ] satisfies readonly ArrangementItem[],
   },
@@ -126,10 +113,7 @@ export const siteContent = {
     name: site.name,
     title: "Raízes manauaras, olhar artesanal",
     bio: "A Mavife nasceu em Manaus do encontro entre a riqueza da flora amazônica e o gesto manual da cestaria. Trabalhamos com plantas, fibras naturais e formas orgânicas para criar decoração que respira — peças pensadas para morar com você, não apenas enfeitar.",
-    image: {
-      src: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=800&q=80",
-      alt: "Mãos artesãs organizando folhagens e flores",
-    },
+    image: images.aboutFlorist,
   },
   contact: {
     id: "contato",
