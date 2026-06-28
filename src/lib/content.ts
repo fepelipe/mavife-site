@@ -1,4 +1,5 @@
 import type { NavItem, ArrangementItem, ServiceItem, InstagramPost } from "./types";
+import { images } from "./images";
 
 const WHATSAPP_NUMBER = "5592999999999";
 
@@ -56,12 +57,7 @@ export const siteContent = {
       label: "Encomendar",
       href: getWhatsAppUrl("Olá! Gostaria de uma peça de home decor."),
     },
-    image: {
-      src: "https://images.unsplash.com/photo-1614594975529-e45183118180?auto=format&fit=crop&w=1000&q=80",
-      alt: "Costela-de-adão em sala decorada com luz natural",
-      width: 1000,
-      height: 1200,
-    },
+    image: images.heroMonstera,
   },
   arrangements: {
     id: "pecas",
@@ -72,28 +68,19 @@ export const siteContent = {
         title: "Monstera Solo",
         description:
           "Costela-de-adão em vaso cerâmico artesanal — statement piece para salas e halls.",
-        image: {
-          src: "https://images.unsplash.com/photo-1614594975529-e45183118180?auto=format&fit=crop&w=600&q=80",
-          alt: "Costela-de-adão em vaso minimalista",
-        },
+        image: images.heroMonstera,
       },
       {
         title: "Console Verde",
         description:
           "Aparador com cipós, suculents e musgo — camadas de verde em escala compacta.",
-        image: {
-          src: "https://images.unsplash.com/photo-1459411550354-405e96163c72?auto=format&fit=crop&w=600&q=80",
-          alt: "Composição de suculentas em aparador",
-        },
+        image: images.arrangementSucculent,
       },
       {
         title: "Centro Amazônico",
         description:
           "Centro de mesa com fibras trançadas, folhagens regionais e flores da estação.",
-        image: {
-          src: "https://images.unsplash.com/photo-1561181286-d352f7b79879?auto=format&fit=crop&w=600&q=80",
-          alt: "Centro de mesa com flores e folhagens",
-        },
+        image: images.arrangementWhite,
       },
     ] satisfies readonly ArrangementItem[],
   },
@@ -122,10 +109,7 @@ export const siteContent = {
     name: site.name,
     title: "Decoração com alma amazônica",
     bio: "A Mavife é um ateliê de home decor em Manaus. Criamos peças artesanais que unem a força da flora local — costela-de-adão, cipós, bromélias e suculents — à delicadeza da cestaria e dos centros de mesa feitos à mão.",
-    image: {
-      src: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80",
-      alt: "Sala decorada com plantas tropicais e luz natural",
-    },
+    image: images.interiorPlants,
   },
   contact: {
     id: "contato",
