@@ -1,13 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --color-ink: #2a3d33;
-  --color-muted: #5c6b62;
-  --color-surface: #f7f3ef;
-  --color-white: #ffffff;
-  --color-accent: #e8c4c4;
-  --color-accent-deep: #c97b84;
-  --color-leaf: #6b8f71;
+  --color-ink: #3d3428;
+  --color-muted: #6b5e4c;
+  --color-surface: #faf6f0;
+  --color-white: #fffcf7;
+  --color-accent: #a67c52;
+  --color-accent-deep: #7a5738;
+  --color-leaf: #5c7248;
+  --color-fiber: #ebe3d4;
+  --color-wicker: #c4a882;
 }
 
 @theme inline {
@@ -18,6 +20,8 @@
   --color-accent: var(--color-accent);
   --color-accent-deep: var(--color-accent-deep);
   --color-leaf: var(--color-leaf);
+  --color-fiber: var(--color-fiber);
+  --color-wicker: var(--color-wicker);
   --font-family-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-family-display: var(--font-display), ui-serif, Georgia, serif;
   --max-width-site: 1280px;
@@ -26,34 +30,28 @@
 
 @utility text-body {
   font-size: 17px;
-  line-height: 27px;
-}
-
-@utility text-subtitle {
-  font-size: 20px;
-  line-height: 30px;
-  font-weight: 600;
+  line-height: 1.7;
 }
 
 @utility text-h2 {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-size: clamp(1.875rem, 4vw, 2.5rem);
   line-height: 1.2;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 @utility text-h3 {
   font-family: var(--font-display);
-  font-size: 1.625rem;
+  font-size: 1.375rem;
   line-height: 1.3;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 @utility section-x {
   padding-inline: 1.875rem;
 
   @media (width >= 48rem) {
-    padding-inline: 6.25rem;
+    padding-inline: 5rem;
   }
 }
 
@@ -69,23 +67,35 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  background-color: var(--color-leaf);
-  padding-inline: 2rem;
+  background-color: var(--color-accent);
+  border-radius: 9999px;
+  padding-inline: 2.25rem;
   padding-block: 1rem;
-  font-size: 1rem;
-  line-height: 1.5;
+  font-size: 0.9375rem;
   font-weight: 600;
   color: var(--color-white);
-  transition: background-color 150ms, transform 150ms;
+  transition: background-color 150ms;
 
   &:hover {
-    background-color: color-mix(in srgb, var(--color-leaf) 85%, black);
+    background-color: var(--color-accent-deep);
   }
+}
 
-  &:active {
-    transform: scale(0.98);
-  }
+@utility basket-frame {
+  border-radius: 2rem 2rem 1rem 1rem;
+  border: 3px solid var(--color-wicker);
+  box-shadow: 0 4px 0 var(--color-wicker);
+}
+
+@utility fiber-bg {
+  background-color: var(--color-fiber);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 8px,
+    color-mix(in srgb, var(--color-wicker) 12%, transparent) 8px,
+    color-mix(in srgb, var(--color-wicker) 12%, transparent) 9px
+  );
 }
 
 html {
@@ -93,7 +103,7 @@ html {
 }
 
 body {
-  background: var(--color-white);
+  background: var(--color-surface);
   color: var(--color-ink);
 }
 

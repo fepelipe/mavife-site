@@ -1,16 +1,16 @@
-import { Cormorant_Garamond, Nunito_Sans } from "next/font/google";
+import { Libre_Baskerville, Karla } from "next/font/google";
 
-export const display = Cormorant_Garamond({
+export const display = Libre_Baskerville({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "700"],
   display: "swap",
   variable: "--font-display",
   adjustFontFallback: true,
 });
 
-export const sans = Nunito_Sans({
+export const sans = Karla({
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
   variable: "--font-sans",
   adjustFontFallback: true,
