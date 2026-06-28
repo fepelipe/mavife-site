@@ -7,5 +7,5 @@ export function getSiteUrl() {
     return `https://${process.env.VERCEL_URL}`;
   }
 
-  return "https://mavife-site.vercel.app";
+  return "https://mavife.vercel.app";
 }
