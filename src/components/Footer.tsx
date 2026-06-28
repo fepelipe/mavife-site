@@ -4,12 +4,12 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="section-x border-t border-surface bg-white py-8">
-      <div className="mx-auto flex max-w-content flex-col items-center justify-between gap-4 text-sm text-muted sm:flex-row">
+    <footer className="section-x border-t border-ink/10 py-10">
+      <div className="mx-auto flex max-w-content flex-col gap-2 text-center text-xs tracking-widest text-muted uppercase md:flex-row md:justify-between md:text-left">
         <p>
-          © {year} {site.name}. Todos os direitos reservados.
+          {site.name} · {site.tagline}
         </p>
-        <p>Flores frescas, feitas com carinho.</p>
+        <p>© {year} Manaus, AM</p>
       </div>
     </footer>
   );

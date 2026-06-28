@@ -1,7 +1,6 @@
-import type { NavItem, ArrangementItem, ServiceItem } from "./types";
+import type { NavItem, ArrangementItem, ServiceItem, InstagramPost } from "./types";
 
-/** International format, digits only — used in wa.me links. */
-const WHATSAPP_NUMBER = "5511999999999";
+const WHATSAPP_NUMBER = "5592999999999";
 
 export function getWhatsAppUrl(message?: string) {
   const base = `https://wa.me/${WHATSAPP_NUMBER}`;
@@ -11,109 +10,133 @@ export function getWhatsAppUrl(message?: string) {
 
 export const site = {
   name: "Mavife",
-  logoLabel: "Mavife Floricultura",
-  title: "Mavife — Floricultura & Arranjos",
+  tagline: "Home Decor",
+  logoLabel: "Mavife — Home Decor",
+  title: "Mavife — Home Decor Artesanal",
   description:
-    "Flores frescas, arranjos artesanais e presentes florais para momentos especiais. Encomende pelo WhatsApp.",
+    "Decoração artesanal com flora amazônica, cestaria, suculentas e arranjos feitos à mão em Manaus. Peças únicas para transformar sua casa.",
+} as const;
+
+export const instagramFeed = {
+  username: "urbanjungleblog",
+  profileUrl: "https://www.instagram.com/urbanjungleblog/",
+  title: "Instagram",
+  description: "Últimas inspirações de decoração com plantas — curadoria @urbanjungleblog.",
+  posts: [
+    {
+      permalink: "https://www.instagram.com/urbanjungleblog/reel/DI3VLqft3Ic/",
+      caption: "Plant-filled home",
+    },
+    {
+      permalink: "https://www.instagram.com/urbanjungleblog/reel/C7AOqeKtjP-/",
+      caption: "Green styling",
+    },
+    {
+      permalink: "https://www.instagram.com/p/CzR8xqMO5tA/",
+      caption: "Urban jungle",
+    },
+  ] satisfies readonly InstagramPost[],
 } as const;
 
 export const siteContent = {
   nav: [
     { label: "Início", href: "/" },
-    { label: "Arranjos", href: "/#arranjos" },
-    { label: "Serviços", href: "/#servicos" },
+    { label: "Peças", href: "/#pecas" },
+    { label: "Estilo", href: "/#estilo" },
+    { label: "Instagram", href: "/#instagram" },
     { label: "Sobre", href: "/about" },
     { label: "Contato", href: "/#contato" },
   ] satisfies readonly NavItem[],
   hero: {
-    eyebrow: "Floricultura artesanal",
-    title: "Flores que contam histórias",
+    eyebrow: "Home Decor · Manaus",
+    title: "A floresta encontra o seu living",
     description:
-      "Arranjos feitos à mão com flores frescas da estação — para celebrar, presentear ou simplesmente trazer beleza ao seu dia.",
+      "Composições artesanais com costela-de-adão, cipós, suculentas e cestaria amazônica — peças de decoração pensadas para ambientes que respiram natureza.",
     cta: {
-      label: "Encomendar pelo WhatsApp",
-      href: getWhatsAppUrl("Olá! Gostaria de fazer uma encomenda."),
+      label: "Encomendar",
+      href: getWhatsAppUrl("Olá! Gostaria de uma peça de home decor."),
     },
     image: {
-      src: "https://images.unsplash.com/photo-1490750967868-88aa4486cfe2?auto=format&fit=crop&w=990&q=80",
-      alt: "Buquê de rosas e flores de campo em tons suaves",
-      width: 990,
-      height: 660,
+      src: "https://images.unsplash.com/photo-1614594975529-e45183118180?auto=format&fit=crop&w=1000&q=80",
+      alt: "Costela-de-adão em sala decorada com luz natural",
+      width: 1000,
+      height: 1200,
     },
   },
   arrangements: {
-    id: "arranjos",
-    title: "Arranjos em destaque",
-    description:
-      "Cada peça é única. Confira nossas composições favoritas e peça a sua pelo WhatsApp.",
+    id: "pecas",
+    title: "Seleção",
+    description: "Três composições artesanais — encomende a sua pelo WhatsApp.",
     items: [
       {
-        title: "Buquê Rosé",
-        description: "Rosas, ranúnculos e folhagens delicadas em tons blush.",
+        title: "Monstera Solo",
+        description:
+          "Costela-de-adão em vaso cerâmico artesanal — statement piece para salas e halls.",
+        image: {
+          src: "https://images.unsplash.com/photo-1614594975529-e45183118180?auto=format&fit=crop&w=600&q=80",
+          alt: "Costela-de-adão em vaso minimalista",
+        },
+      },
+      {
+        title: "Console Verde",
+        description:
+          "Aparador com cipós, suculents e musgo — camadas de verde em escala compacta.",
+        image: {
+          src: "https://images.unsplash.com/photo-1459411550354-405e96163c72?auto=format&fit=crop&w=600&q=80",
+          alt: "Composição de suculentas em aparador",
+        },
+      },
+      {
+        title: "Centro Amazônico",
+        description:
+          "Centro de mesa com fibras trançadas, folhagens regionais e flores da estação.",
         image: {
           src: "https://images.unsplash.com/photo-1561181286-d352f7b79879?auto=format&fit=crop&w=600&q=80",
-          alt: "Buquê rosé com rosas e flores delicadas",
-        },
-      },
-      {
-        title: "Jardim de Campo",
-        description: "Mix sazonal com texturas naturais e aroma suave.",
-        image: {
-          src: "https://images.unsplash.com/photo-1487070183336-b863922373d4?auto=format&fit=crop&w=600&q=80",
-          alt: "Arranjo de flores de campo coloridas",
-        },
-      },
-      {
-        title: "Elegance Branca",
-        description: "Lírios, hortênsias e verdes estruturados para ocasiões especiais.",
-        image: {
-          src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=600&q=80",
-          alt: "Arranjo branco elegante com lírios",
+          alt: "Centro de mesa com flores e folhagens",
         },
       },
     ] satisfies readonly ArrangementItem[],
   },
   services: {
-    id: "servicos",
-    title: "Como podemos ajudar",
+    id: "estilo",
+    title: "Nosso estilo",
     items: [
       {
-        title: "Buquês & arranjos",
+        title: "Home decor vivo",
         description:
-          "Composições personalizadas para aniversários, namoro, gratidão ou autocuidado.",
+          "Plantas e composições que integram natureza e design de interiores no dia a dia.",
       },
       {
-        title: "Eventos & decoração",
+        title: "Artesanal manauara",
         description:
-          "Centros de mesa, arcos florais e instalações para casamentos e celebrações.",
+          "Cestaria, tramas e montagem manual — cada peça nasce no ateliê, com flora regional.",
       },
       {
-        title: "Assinatura semanal",
+        title: "Ambientes acolhedores",
         description:
-          "Flores frescas na sua casa ou escritório, com entrega programada.",
+          "Salas, varandas e cantos de leitura — decoração que transforma sem exagerar.",
       },
     ] satisfies readonly ServiceItem[],
   },
   about: {
     name: site.name,
-    title: "Raízes locais, flores com alma",
-    bio: "A Mavife nasceu do amor por flores frescas e pelo gesto simples de presentear. Selecionamos cada flor no mercado, montamos arranjos à mão e orientamos você na escolha perfeita — sempre com atendimento próximo pelo WhatsApp.",
+    title: "Decoração com alma amazônica",
+    bio: "A Mavife é um ateliê de home decor em Manaus. Criamos peças artesanais que unem a força da flora local — costela-de-adão, cipós, bromélias e suculents — à delicadeza da cestaria e dos centros de mesa feitos à mão.",
     image: {
-      src: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=800&q=80",
-      alt: "Florista organizando flores frescas em um balcão",
+      src: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80",
+      alt: "Sala decorada com plantas tropicais e luz natural",
     },
   },
   contact: {
     id: "contato",
-    title: "Vamos conversar",
-    description:
-      "Conte o que você precisa — ocasião, cores, orçamento — e montamos a proposta ideal. Atendimento rápido pelo WhatsApp.",
+    title: "Contato",
+    description: "Conte sobre o seu espaço — respondemos pelo WhatsApp com uma proposta artesanal.",
     whatsapp: {
       label: "WhatsApp",
-      href: getWhatsAppUrl("Olá! Gostaria de saber mais sobre os arranjos."),
-      number: "+55 11 99999-9999",
+      href: getWhatsAppUrl("Olá! Quero saber mais sobre home decor."),
+      number: "+55 92 99999-9999",
     },
     hours: "Seg–Sáb, 9h–18h",
-    address: "São Paulo, SP — entregas na região metropolitana",
+    address: "Manaus, AM",
   },
 } as const;

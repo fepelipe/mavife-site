@@ -10,9 +10,9 @@ export function WhatsAppFloat() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`${whatsapp.label}: iniciar conversa`}
-      className="fixed right-5 bottom-5 z-50 flex size-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf active:scale-95 sm:right-6 sm:bottom-6 sm:size-16"
+      className="fixed right-5 bottom-5 z-50 flex size-12 items-center justify-center bg-ink text-cream shadow-lg transition-opacity hover:opacity-85 active:opacity-70 sm:size-14"
     >
-      <WhatsAppIcon className="size-7 sm:size-8" />
+      <WhatsAppIcon className="size-5 sm:size-6" />
     </a>
   );
 }

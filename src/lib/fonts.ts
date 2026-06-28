@@ -1,6 +1,6 @@
-import { Cormorant_Garamond, Nunito_Sans } from "next/font/google";
+import { Playfair_Display, Source_Sans_3 } from "next/font/google";
 
-export const display = Cormorant_Garamond({
+export const display = Playfair_Display({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
@@ -8,9 +8,9 @@ export const display = Cormorant_Garamond({
   adjustFontFallback: true,
 });
 
-export const sans = Nunito_Sans({
+export const sans = Source_Sans_3({
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
   variable: "--font-sans",
   adjustFontFallback: true,

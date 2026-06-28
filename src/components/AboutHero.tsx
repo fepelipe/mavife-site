@@ -1,13 +1,20 @@
 import Image from "next/image";
-import { siteContent } from "@/lib/content";
+import { site, siteContent } from "@/lib/content";
 
 export function AboutHero() {
   const { about } = siteContent;
 
   return (
-    <section className="section-x bg-surface py-16 md:py-24">
-      <div className="mx-auto grid max-w-content items-center gap-12 md:grid-cols-2 md:gap-16">
-        <div className="relative aspect-[4/5] overflow-hidden md:order-2">
+    <section className="section-x py-16 md:py-24">
+      <div className="mx-auto grid max-w-content gap-12 md:grid-cols-2 md:items-center">
+        <div className="flex flex-col gap-6">
+          <p className="text-xs font-semibold tracking-[0.3em] text-muted uppercase">
+            {site.tagline} · Manaus
+          </p>
+          <h1 className="text-h2 text-ink">{about.title}</h1>
+          <p className="text-body text-muted">{about.bio}</p>
+        </div>
+        <div className="relative aspect-[5/4] bg-surface">
           <Image
             src={about.image.src}
             alt={about.image.alt}
@@ -16,11 +23,6 @@ export function AboutHero() {
             sizes="(max-width: 768px) 100vw, 50vw"
             priority
           />
-        </div>
-        <div className="flex flex-col gap-6 md:order-1">
-          <p className="text-sm font-semibold tracking-widest text-leaf uppercase">Sobre</p>
-          <h1 className="text-h2 text-ink">{about.title}</h1>
-          <p className="text-body text-muted">{about.bio}</p>
         </div>
       </div>
     </section>

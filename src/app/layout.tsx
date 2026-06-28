@@ -13,7 +13,7 @@ export const metadata = rootMetadata;
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#6b8f71",
+  themeColor: "#faf8f5",
 };
 
 export default function RootLayout({
@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className={`${display.variable} ${sans.variable} h-full`}>
-      <body className="min-h-full bg-white font-sans text-ink antialiased">
+      <body className="min-h-full bg-cream font-sans text-ink antialiased">
         <SkipLink />
         <div className="flex min-h-full flex-col">
           <Navigation />

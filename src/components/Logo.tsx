@@ -8,15 +8,11 @@ type LogoProps = {
 
 export function Logo({ className }: LogoProps) {
   return (
-    <Link
-      href="/"
-      className={cn(
-        "font-display text-h3 text-ink transition-opacity hover:opacity-80",
-        className,
-      )}
-      aria-label={site.logoLabel}
-    >
-      {site.name}
+    <Link href="/" className={cn("flex flex-col", className)} aria-label={site.logoLabel}>
+      <span className="font-display text-2xl font-medium tracking-tight text-ink">{site.name}</span>
+      <span className="text-[0.625rem] font-semibold tracking-[0.35em] text-muted uppercase">
+        {site.tagline}
+      </span>
     </Link>
   );
 }
