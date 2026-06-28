@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+:root {
+  --color-ink: #2a3d33;
+  --color-muted: #5c6b62;
+  --color-surface: #f7f3ef;
+  --color-white: #ffffff;
+  --color-accent: #e8c4c4;
+  --color-accent-deep: #c97b84;
+  --color-leaf: #6b8f71;
+}
+
+@theme inline {
+  --color-ink: var(--color-ink);
+  --color-muted: var(--color-muted);
+  --color-surface: var(--color-surface);
+  --color-white: var(--color-white);
+  --color-accent: var(--color-accent);
+  --color-accent-deep: var(--color-accent-deep);
+  --color-leaf: var(--color-leaf);
+  --font-family-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-family-display: var(--font-display), ui-serif, Georgia, serif;
+  --max-width-site: 1280px;
+  --max-width-content: 1080px;
+}
+
+@utility text-body {
+  font-size: 17px;
+  line-height: 27px;
+}
+
+@utility text-subtitle {
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 600;
+}
+
+@utility text-h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+@utility text-h3 {
+  font-family: var(--font-display);
+  font-size: 1.625rem;
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+@utility section-x {
+  padding-inline: 1.875rem;
+
+  @media (width >= 48rem) {
+    padding-inline: 6.25rem;
+  }
+}
+
+@utility section-x-nav {
+  padding-inline: 1.875rem;
+
+  @media (width >= 48rem) {
+    padding-inline: 3.125rem;
+  }
+}
+
+@utility btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: var(--color-leaf);
+  padding-inline: 2rem;
+  padding-block: 1rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 600;
+  color: var(--color-white);
+  transition: background-color 150ms, transform 150ms;
+
+  &:hover {
+    background-color: color-mix(in srgb, var(--color-leaf) 85%, black);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-white);
+  color: var(--color-ink);
+}
+
+@utility not-sr-only {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: revert;
+  margin: revert;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
