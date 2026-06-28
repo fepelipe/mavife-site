@@ -1,4 +1,5 @@
 import type { NavItem, ArrangementItem, ServiceItem, InstagramPost } from "./types";
+import { images } from "./images";
 
 const WHATSAPP_NUMBER = "5592999999999";
 
@@ -56,12 +57,7 @@ export const siteContent = {
       label: "Falar no WhatsApp",
       href: getWhatsAppUrl("Olá! Quero uma peça de decoração artesanal."),
     },
-    image: {
-      src: "https://images.unsplash.com/photo-1592159219834-35234473d265?auto=format&fit=crop&w=1000&q=80",
-      alt: "Cesto artesanal com plantas e fibras naturais",
-      width: 1000,
-      height: 750,
-    },
+    image: images.arrangementCenterpiece,
   },
   arrangements: {
     id: "colecao",
@@ -71,34 +67,22 @@ export const siteContent = {
       {
         title: "Trança & Bromélia",
         description: "Cesto de taboca com bromélias e folhagens — textura amazônica para aparadores.",
-        image: {
-          src: "https://images.unsplash.com/photo-1487070183336-b863922373d4?auto=format&fit=crop&w=600&q=80",
-          alt: "Arranjo tropical em cesto artesanal",
-        },
+        image: images.arrangementTropical,
       },
       {
         title: "Cipó Pendente",
         description: "Composição vertical com cipós, musgo e suculents — ideal para prateleiras altas.",
-        image: {
-          src: "https://images.unsplash.com/photo-1466781783364-ae644c367114?auto=format&fit=crop&w=600&q=80",
-          alt: "Plantas pendentes e cipós em decoração",
-        },
+        image: images.heroMonstera,
       },
       {
         title: "Mesa da Floresta",
         description: "Centro de mesa com elementos naturais, flores da estação e base trançada.",
-        image: {
-          src: "https://images.unsplash.com/photo-1561181286-d352f7b79879?auto=format&fit=crop&w=600&q=80",
-          alt: "Centro de mesa artesanal com flores",
-        },
+        image: images.arrangementWhite,
       },
       {
         title: "Mini Cesto Suculenta",
         description: "Pequena composição em fibra natural — presente artesanal e delicado.",
-        image: {
-          src: "https://images.unsplash.com/photo-1459411550354-405e96163c72?auto=format&fit=crop&w=600&q=80",
-          alt: "Suculentas em mini cesto trançado",
-        },
+        image: images.arrangementSucculent,
       },
     ] satisfies readonly ArrangementItem[],
   },
@@ -124,10 +108,7 @@ export const siteContent = {
     name: site.name,
     title: "Feito à mão, inspirado na Amazônia",
     bio: "Somos um ateliê de home decor em Manaus. Unimos cestaria, plantas e olhar artesanal para criar peças que acolhem — com referências à flora regional, à trama das fibras e ao ritmo lento do feito à mão.",
-    image: {
-      src: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=800&q=80",
-      alt: "Artesã preparando composição floral",
-    },
+    image: images.aboutFlorist,
   },
   contact: {
     id: "contato",
