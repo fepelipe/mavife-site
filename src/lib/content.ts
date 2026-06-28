@@ -1,4 +1,4 @@
-import type { NavItem, ArrangementItem, ServiceItem, InstagramPost } from "./types";
+import type { NavItem, ArrangementItem, ServiceItem } from "./types";
 import { images } from "./images";
 
 /** International format, digits only — Manaus area (92). */
@@ -19,27 +19,11 @@ export const site = {
     "Decoração artesanal com flora amazônica, cestaria, suculentas e arranjos feitos à mão em Manaus. Peças únicas para transformar sua casa.",
 } as const;
 
-/** Public inspiration feed — @urbanjungleblog (home decor & houseplants). */
+/** Instagram feed — posts fetched at runtime from @marlyfonseca_ */
 export const instagramFeed = {
-  username: "urbanjungleblog",
-  profileUrl: "https://www.instagram.com/urbanjungleblog/",
-  title: "Inspiração do dia",
-  description:
-    "Referências de decoração com plantas que nos inspiram — acompanhe também no Instagram.",
-  posts: [
-    {
-      permalink: "https://www.instagram.com/urbanjungleblog/reel/DI3VLqft3Ic/",
-      caption: "Lar cheio de plantas e decoração verde",
-    },
-    {
-      permalink: "https://www.instagram.com/urbanjungleblog/reel/C7AOqeKtjP-/",
-      caption: "Plantas e styling de interiores",
-    },
-    {
-      permalink: "https://www.instagram.com/p/CzR8xqMO5tA/",
-      caption: "Urban jungle em casa",
-    },
-  ] satisfies readonly InstagramPost[],
+  username: "marlyfonseca_",
+  title: "No Instagram",
+  description: "Acompanhe as últimas publicações da Marly — arranjos, decoração e bastidores do ateliê.",
 } as const;
 
 export const siteContent = {

@@ -20,8 +20,3 @@ export type ServiceItem = {
   title: string;
   description: string;
 };
-
-export type InstagramPost = {
-  permalink: string;
-  caption?: string;
-};
