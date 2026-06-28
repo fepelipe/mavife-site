@@ -1,7 +1,7 @@
-import type { NavItem, ArrangementItem, ServiceItem } from "./types";
+import type { NavItem, ArrangementItem, ServiceItem, InstagramPost } from "./types";
 
-/** International format, digits only — used in wa.me links. */
-const WHATSAPP_NUMBER = "5511999999999";
+/** International format, digits only — Manaus area (92). */
+const WHATSAPP_NUMBER = "5592999999999";
 
 export function getWhatsAppUrl(message?: string) {
   const base = `https://wa.me/${WHATSAPP_NUMBER}`;
@@ -11,109 +11,137 @@ export function getWhatsAppUrl(message?: string) {
 
 export const site = {
   name: "Mavife",
-  logoLabel: "Mavife Floricultura",
-  title: "Mavife — Floricultura & Arranjos",
+  tagline: "Home Decor",
+  logoLabel: "Mavife — Home Decor",
+  title: "Mavife — Home Decor Artesanal",
   description:
-    "Flores frescas, arranjos artesanais e presentes florais para momentos especiais. Encomende pelo WhatsApp.",
+    "Decoração artesanal com flora amazônica, cestaria, suculentas e arranjos feitos à mão em Manaus. Peças únicas para transformar sua casa.",
+} as const;
+
+/** Public inspiration feed — @urbanjungleblog (home decor & houseplants). */
+export const instagramFeed = {
+  username: "urbanjungleblog",
+  profileUrl: "https://www.instagram.com/urbanjungleblog/",
+  title: "Inspiração do dia",
+  description:
+    "Referências de decoração com plantas que nos inspiram — acompanhe também no Instagram.",
+  posts: [
+    {
+      permalink: "https://www.instagram.com/urbanjungleblog/reel/DI3VLqft3Ic/",
+      caption: "Lar cheio de plantas e decoração verde",
+    },
+    {
+      permalink: "https://www.instagram.com/urbanjungleblog/reel/C7AOqeKtjP-/",
+      caption: "Plantas e styling de interiores",
+    },
+    {
+      permalink: "https://www.instagram.com/p/CzR8xqMO5tA/",
+      caption: "Urban jungle em casa",
+    },
+  ] satisfies readonly InstagramPost[],
 } as const;
 
 export const siteContent = {
   nav: [
     { label: "Início", href: "/" },
-    { label: "Arranjos", href: "/#arranjos" },
-    { label: "Serviços", href: "/#servicos" },
+    { label: "Peças", href: "/#pecas" },
+    { label: "Ateliê", href: "/#atelie" },
+    { label: "Instagram", href: "/#instagram" },
     { label: "Sobre", href: "/about" },
     { label: "Contato", href: "/#contato" },
   ] satisfies readonly NavItem[],
   hero: {
-    eyebrow: "Floricultura artesanal",
-    title: "Flores que contam histórias",
+    eyebrow: "Home Decor · Manaus, AM",
+    title: "Flora amazônica, feita à mão para o seu lar",
     description:
-      "Arranjos feitos à mão com flores frescas da estação — para celebrar, presentear ou simplesmente trazer beleza ao seu dia.",
+      "Cestos trançados, cipós, suculentas, centros de mesa e costelas-de-adão — composições artesanais que trazem a floresta para dentro de casa, com delicadeza e propósito.",
     cta: {
       label: "Encomendar pelo WhatsApp",
-      href: getWhatsAppUrl("Olá! Gostaria de fazer uma encomenda."),
+      href: getWhatsAppUrl("Olá! Gostaria de saber mais sobre as peças de decoração."),
     },
     image: {
-      src: "https://images.unsplash.com/photo-1490750967868-88aa4486cfe2?auto=format&fit=crop&w=990&q=80",
-      alt: "Buquê de rosas e flores de campo em tons suaves",
-      width: 990,
-      height: 660,
+      src: "https://images.unsplash.com/photo-1466781783364-ae644c367114?auto=format&fit=crop&w=1200&q=80",
+      alt: "Folhagens tropicais e plantas em ambiente acolhedor",
+      width: 1200,
+      height: 800,
     },
   },
   arrangements: {
-    id: "arranjos",
-    title: "Arranjos em destaque",
+    id: "pecas",
+    title: "Peças em destaque",
     description:
-      "Cada peça é única. Confira nossas composições favoritas e peça a sua pelo WhatsApp.",
+      "Cada composição é única — tecida, montada e finalizada no ateliê. Peça a sua pelo WhatsApp.",
     items: [
       {
-        title: "Buquê Rosé",
-        description: "Rosas, ranúnculos e folhagens delicadas em tons blush.",
+        title: "Cesto Amazônia",
+        description:
+          "Cestaria local com bromélias, samambaias e folhagens de sub-bosque — textura e calor para salas e varandas.",
+        image: {
+          src: "https://images.unsplash.com/photo-1592159219834-35234473d265?auto=format&fit=crop&w=600&q=80",
+          alt: "Arranjo em cesto de palha com plantas tropicais",
+        },
+      },
+      {
+        title: "Centro Selva",
+        description:
+          "Centro de mesa com cipós pendentes, musgos e flores da estação — artesanal e vivo.",
         image: {
           src: "https://images.unsplash.com/photo-1561181286-d352f7b79879?auto=format&fit=crop&w=600&q=80",
-          alt: "Buquê rosé com rosas e flores delicadas",
+          alt: "Centro de mesa floral artesanal",
         },
       },
       {
-        title: "Jardim de Campo",
-        description: "Mix sazonal com texturas naturais e aroma suave.",
+        title: "Suculentas & Trama",
+        description:
+          "Mini composição em cestinho trançado — ideal para prateleiras, mesas de cabeceira e home office.",
         image: {
-          src: "https://images.unsplash.com/photo-1487070183336-b863922373d4?auto=format&fit=crop&w=600&q=80",
-          alt: "Arranjo de flores de campo coloridas",
-        },
-      },
-      {
-        title: "Elegance Branca",
-        description: "Lírios, hortênsias e verdes estruturados para ocasiões especiais.",
-        image: {
-          src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=600&q=80",
-          alt: "Arranjo branco elegante com lírios",
+          src: "https://images.unsplash.com/photo-1459411550354-405e96163c72?auto=format&fit=crop&w=600&q=80",
+          alt: "Suculentas em composição artesanal",
         },
       },
     ] satisfies readonly ArrangementItem[],
   },
   services: {
-    id: "servicos",
-    title: "Como podemos ajudar",
+    id: "atelie",
+    title: "O ateliê",
     items: [
       {
-        title: "Buquês & arranjos",
+        title: "Decoração de ambientes",
         description:
-          "Composições personalizadas para aniversários, namoro, gratidão ou autocuidado.",
+          "Peças sob medida para sala, varanda gourmet e cantinhos de leitura — com flora regional e cestaria.",
       },
       {
-        title: "Eventos & decoração",
+        title: "Centros & composições",
         description:
-          "Centros de mesa, arcos florais e instalações para casamentos e celebrações.",
+          "Centros de mesa, aparadores e nichos com costela-de-adão, cipós e suculents em harmonia.",
       },
       {
-        title: "Assinatura semanal",
+        title: "Presentes artesanais",
         description:
-          "Flores frescas na sua casa ou escritório, com entrega programada.",
+          "Embalagens naturais e arranjos compactos — gestos feitos à mão para quem você ama.",
       },
     ] satisfies readonly ServiceItem[],
   },
   about: {
     name: site.name,
-    title: "Raízes locais, flores com alma",
-    bio: "A Mavife nasceu do amor por flores frescas e pelo gesto simples de presentear. Selecionamos cada flor no mercado, montamos arranjos à mão e orientamos você na escolha perfeita — sempre com atendimento próximo pelo WhatsApp.",
+    title: "Raízes manauaras, olhar artesanal",
+    bio: "A Mavife nasceu em Manaus do encontro entre a riqueza da flora amazônica e o gesto manual da cestaria. Trabalhamos com plantas, fibras naturais e formas orgânicas para criar decoração que respira — peças pensadas para morar com você, não apenas enfeitar.",
     image: {
       src: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=800&q=80",
-      alt: "Florista organizando flores frescas em um balcão",
+      alt: "Mãos artesãs organizando folhagens e flores",
     },
   },
   contact: {
     id: "contato",
-    title: "Vamos conversar",
+    title: "Vamos criar juntos",
     description:
-      "Conte o que você precisa — ocasião, cores, orçamento — e montamos a proposta ideal. Atendimento rápido pelo WhatsApp.",
+      "Conte sobre o ambiente, as cores e o clima que imagina — montamos uma proposta artesanal e te respondemos pelo WhatsApp.",
     whatsapp: {
       label: "WhatsApp",
-      href: getWhatsAppUrl("Olá! Gostaria de saber mais sobre os arranjos."),
-      number: "+55 11 99999-9999",
+      href: getWhatsAppUrl("Olá! Gostaria de encomendar uma peça de decoração."),
+      number: "+55 92 99999-9999",
     },
     hours: "Seg–Sáb, 9h–18h",
-    address: "São Paulo, SP — entregas na região metropolitana",
+    address: "Manaus, AM — entregas na capital e região metropolitana",
   },
 } as const;

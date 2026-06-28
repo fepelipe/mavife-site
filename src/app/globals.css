@@ -1,13 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --color-ink: #2a3d33;
-  --color-muted: #5c6b62;
-  --color-surface: #f7f3ef;
-  --color-white: #ffffff;
-  --color-accent: #e8c4c4;
-  --color-accent-deep: #c97b84;
-  --color-leaf: #6b8f71;
+  --color-ink: #1c2e24;
+  --color-muted: #4a5f52;
+  --color-surface: #f0ebe3;
+  --color-white: #fffdf9;
+  --color-accent: #c4795a;
+  --color-accent-deep: #8b4a32;
+  --color-leaf: #2d5a3d;
+  --color-jungle: #1a3c2e;
+  --color-clay: #d4a574;
 }
 
 @theme inline {
@@ -18,6 +20,8 @@
   --color-accent: var(--color-accent);
   --color-accent-deep: var(--color-accent-deep);
   --color-leaf: var(--color-leaf);
+  --color-jungle: var(--color-jungle);
+  --color-clay: var(--color-clay);
   --font-family-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-family-display: var(--font-display), ui-serif, Georgia, serif;
   --max-width-site: 1280px;
@@ -26,26 +30,26 @@
 
 @utility text-body {
   font-size: 17px;
-  line-height: 27px;
+  line-height: 1.65;
 }
 
 @utility text-subtitle {
   font-size: 20px;
-  line-height: 30px;
+  line-height: 1.5;
   font-weight: 600;
 }
 
 @utility text-h2 {
   font-family: var(--font-display);
   font-size: clamp(2rem, 4vw, 2.75rem);
-  line-height: 1.2;
+  line-height: 1.15;
   font-weight: 600;
 }
 
 @utility text-h3 {
   font-family: var(--font-display);
-  font-size: 1.625rem;
-  line-height: 1.3;
+  font-size: 1.5rem;
+  line-height: 1.25;
   font-weight: 600;
 }
 
@@ -70,22 +74,29 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background-color: var(--color-leaf);
+  background-color: var(--color-jungle);
   padding-inline: 2rem;
   padding-block: 1rem;
-  font-size: 1rem;
+  font-size: 0.9375rem;
   line-height: 1.5;
   font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: var(--color-white);
   transition: background-color 150ms, transform 150ms;
 
   &:hover {
-    background-color: color-mix(in srgb, var(--color-leaf) 85%, black);
+    background-color: var(--color-leaf);
   }
 
   &:active {
     transform: scale(0.98);
   }
+}
+
+@utility woven-border {
+  border: 2px solid var(--color-clay);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-clay) 40%, transparent);
 }
 
 html {

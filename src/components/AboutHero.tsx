@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { siteContent } from "@/lib/content";
+import { site, siteContent } from "@/lib/content";
 
 export function AboutHero() {
   const { about } = siteContent;
@@ -7,7 +7,7 @@ export function AboutHero() {
   return (
     <section className="section-x bg-surface py-16 md:py-24">
       <div className="mx-auto grid max-w-content items-center gap-12 md:grid-cols-2 md:gap-16">
-        <div className="relative aspect-[4/5] overflow-hidden md:order-2">
+        <div className="woven-border relative aspect-[4/5] overflow-hidden">
           <Image
             src={about.image.src}
             alt={about.image.alt}
@@ -17,9 +17,11 @@ export function AboutHero() {
             priority
           />
         </div>
-        <div className="flex flex-col gap-6 md:order-1">
-          <p className="text-sm font-semibold tracking-widest text-leaf uppercase">Sobre</p>
-          <h1 className="text-h2 text-ink">{about.title}</h1>
+        <div className="flex flex-col gap-6">
+          <p className="text-sm font-semibold tracking-[0.2em] text-accent uppercase">
+            {site.tagline} · Manaus
+          </p>
+          <h1 className="text-h2 text-jungle">{about.title}</h1>
           <p className="text-body text-muted">{about.bio}</p>
         </div>
       </div>

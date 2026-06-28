@@ -10,13 +10,13 @@ export function Logo({ className }: LogoProps) {
   return (
     <Link
       href="/"
-      className={cn(
-        "font-display text-h3 text-ink transition-opacity hover:opacity-80",
-        className,
-      )}
+      className={cn("group flex flex-col leading-none", className)}
       aria-label={site.logoLabel}
     >
-      {site.name}
+      <span className="font-display text-xl font-semibold tracking-wide text-ink">{site.name}</span>
+      <span className="text-[0.65rem] font-semibold tracking-[0.25em] text-accent uppercase">
+        {site.tagline}
+      </span>
     </Link>
   );
 }

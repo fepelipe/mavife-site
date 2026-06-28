@@ -1,6 +1,6 @@
-import { Cormorant_Garamond, Nunito_Sans } from "next/font/google";
+import { Fraunces, DM_Sans } from "next/font/google";
 
-export const display = Cormorant_Garamond({
+export const display = Fraunces({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
@@ -8,9 +8,9 @@ export const display = Cormorant_Garamond({
   adjustFontFallback: true,
 });
 
-export const sans = Nunito_Sans({
+export const sans = DM_Sans({
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
   variable: "--font-sans",
   adjustFontFallback: true,

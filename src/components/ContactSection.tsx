@@ -1,13 +1,16 @@
 import Link from "next/link";
 import { Section } from "@/components/Section";
-import { siteContent } from "@/lib/content";
+import { site, siteContent } from "@/lib/content";
 
 export function ContactSection() {
   const { contact } = siteContent;
 
   return (
-    <Section id={contact.id} className="bg-white">
-      <div className="mx-auto max-w-2xl text-center">
+    <Section id={contact.id} className="bg-surface">
+      <div className="woven-border mx-auto max-w-2xl bg-white p-10 text-center md:p-14">
+        <p className="mb-2 text-sm font-semibold tracking-[0.2em] text-accent uppercase">
+          {site.tagline}
+        </p>
         <h2 className="text-h2 mb-4 text-ink">{contact.title}</h2>
         <p className="mb-8 text-body text-muted">{contact.description}</p>
         <Link
@@ -24,7 +27,7 @@ export function ContactSection() {
             <dd>{contact.hours}</dd>
           </div>
           <div>
-            <dt className="font-semibold text-ink">Entrega</dt>
+            <dt className="font-semibold text-ink">Local</dt>
             <dd>{contact.address}</dd>
           </div>
         </dl>
