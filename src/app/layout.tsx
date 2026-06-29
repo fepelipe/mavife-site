@@ -4,7 +4,8 @@ import { Navigation } from "@/components/Navigation";
 import { SkipLink } from "@/components/SkipLink";
 import { VercelInsights } from "@/components/VercelInsights";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
-import { display, sans } from "@/lib/fonts";
+import { script, heading, body } from "@/lib/fonts";
+import { cssVariables, themeColor } from "@/lib/colors";
 import { rootMetadata } from "@/lib/metadata";
 import "./globals.css";
 
@@ -13,7 +14,7 @@ export const metadata = rootMetadata;
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#1a3c2e",
+  themeColor,
 };
 
 export default function RootLayout({
@@ -22,7 +23,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`${display.variable} ${sans.variable} h-full`}>
+    <html
+      lang="pt-BR"
+      className={`${script.variable} ${heading.variable} ${body.variable} h-full`}
+      style={cssVariables as React.CSSProperties}
+    >
       <body className="min-h-full bg-white font-sans text-ink antialiased">
         <SkipLink />
         <div className="flex min-h-full flex-col">

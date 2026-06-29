@@ -1,17 +1,26 @@
-import { Fraunces, DM_Sans } from "next/font/google";
+import { Dancing_Script, Montserrat, Inter } from "next/font/google";
 
-export const display = Fraunces({
+/** Cursive highlight font — brand wordmark and rare accent words ("Mavife"). */
+export const script = Dancing_Script({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
-  variable: "--font-display",
-  adjustFontFallback: true,
+  variable: "--font-dancing",
 });
 
-export const sans = DM_Sans({
+/** Geometric sans for headings and subheadings ("Home Decor"). */
+export const heading = Montserrat({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
-  variable: "--font-sans",
+  variable: "--font-montserrat",
+});
+
+/** Default reading font — body copy and UI text. */
+export const body = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-inter",
   adjustFontFallback: true,
 });

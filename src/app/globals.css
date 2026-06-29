@@ -1,16 +1,6 @@
 @import "tailwindcss";
 
-:root {
-  --color-ink: #1c2e24;
-  --color-muted: #4a5f52;
-  --color-surface: #f0ebe3;
-  --color-white: #fffdf9;
-  --color-accent: #c4795a;
-  --color-accent-deep: #8b4a32;
-  --color-leaf: #2d5a3d;
-  --color-jungle: #1a3c2e;
-  --color-clay: #d4a574;
-}
+/* Color values are defined in src/lib/colors.ts and injected on <html> in layout.tsx */
 
 @theme inline {
   --color-ink: var(--color-ink);
@@ -22,8 +12,9 @@
   --color-leaf: var(--color-leaf);
   --color-jungle: var(--color-jungle);
   --color-clay: var(--color-clay);
-  --font-family-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-family-display: var(--font-display), ui-serif, Georgia, serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-script: var(--font-dancing), "Brush Script MT", cursive;
   --max-width-site: 1280px;
   --max-width-content: 1080px;
 }
@@ -40,14 +31,14 @@
 }
 
 @utility text-h2 {
-  font-family: var(--font-display);
+  font-family: var(--font-heading);
   font-size: clamp(2rem, 4vw, 2.75rem);
   line-height: 1.15;
   font-weight: 600;
 }
 
 @utility text-h3 {
-  font-family: var(--font-display);
+  font-family: var(--font-heading);
   font-size: 1.5rem;
   line-height: 1.25;
   font-weight: 600;
@@ -74,7 +65,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background-color: var(--color-jungle);
+  background-color: var(--color-accent);
   padding-inline: 2rem;
   padding-block: 1rem;
   font-size: 0.9375rem;
@@ -82,11 +73,12 @@
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--color-white);
+  color: var(--color-jungle);
   transition: background-color 150ms, transform 150ms;
 
   &:hover {
-    background-color: var(--color-leaf);
+    background-color: var(--color-accent-deep);
+    color: var(--color-white);
   }
 
   &:active {

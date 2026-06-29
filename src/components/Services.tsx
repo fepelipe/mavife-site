@@ -13,7 +13,7 @@ export function Services() {
             key={item.title}
             className="flex flex-col gap-4 border border-white/15 bg-white/5 p-8 backdrop-blur-sm"
           >
-            <h3 className="font-display text-xl font-semibold text-white">{item.title}</h3>
+            <h3 className="font-heading text-xl font-semibold text-white">{item.title}</h3>
             <p className="text-body text-white/75">{item.description}</p>
           </li>
         ))}

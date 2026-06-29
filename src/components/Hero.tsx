@@ -21,7 +21,7 @@ export function Hero() {
           <p className="text-sm font-semibold tracking-[0.2em] text-clay uppercase">
             {site.tagline} · {hero.eyebrow.split("·")[1]?.trim() ?? hero.eyebrow}
           </p>
-          <h1 className="font-display text-[clamp(2.25rem,5vw,3.75rem)] leading-[1.1] font-semibold text-white">
+          <h1 className="font-heading text-[clamp(2.25rem,5vw,3.75rem)] leading-[1.1] font-semibold text-white">
             {hero.title}
           </h1>
           <p className="max-w-prose text-body text-white/85">{hero.description}</p>
@@ -30,7 +30,7 @@ export function Hero() {
               href={hero.cta.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-primary bg-accent hover:bg-accent-deep"
+              className="btn-primary"
             >
               {hero.cta.label}
             </Link>
