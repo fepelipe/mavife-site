@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/lib/content";
 import { cn } from "@/lib/cn";
@@ -10,12 +11,22 @@ export function Logo({ className }: LogoProps) {
   return (
     <Link
       href="/"
-      className={cn("group flex flex-col leading-none", className)}
+      className={cn("group flex items-center gap-2.5", className)}
       aria-label={site.logoLabel}
     >
-      <span className="font-display text-xl font-semibold tracking-wide text-ink">{site.name}</span>
-      <span className="text-[0.65rem] font-semibold tracking-[0.25em] text-accent uppercase">
-        {site.tagline}
+      <Image
+        src="/images/mavife-plant.png"
+        alt=""
+        width={44}
+        height={44}
+        priority
+        className="h-10 w-auto transition-transform duration-200 group-hover:scale-105"
+      />
+      <span className="flex flex-col leading-none">
+        <span className="font-script text-2xl font-bold leading-none text-ink">{site.name}</span>
+        <span className="font-heading text-[0.6rem] font-semibold tracking-[0.25em] text-accent uppercase">
+          {site.tagline}
+        </span>
       </span>
     </Link>
   );
