@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/lib/content";
+import { images } from "@/lib/images";
 import { cn } from "@/lib/cn";
 
 type LogoProps = {
@@ -8,6 +9,8 @@ type LogoProps = {
 };
 
 export function Logo({ className }: LogoProps) {
+  const { plant, name, tagline } = images.brand;
+
   return (
     <Link
       href="/"
@@ -15,27 +18,27 @@ export function Logo({ className }: LogoProps) {
       aria-label={site.logoLabel}
     >
       <Image
-        src="/images/mavife-plant.png"
+        src={plant.src}
         alt=""
-        width={44}
-        height={44}
+        width={plant.width}
+        height={plant.height}
         priority
         className="h-10 w-auto transition-transform duration-200 group-hover:scale-105"
       />
       <span className="flex flex-col leading-none">
         <Image
-          src="/images/mavife-name.png"
+          src={name.src}
           alt=""
-          width={632}
-          height={206}
+          width={name.width}
+          height={name.height}
           priority
           className="h-6 w-auto"
         />
         <Image
-          src="/images/mavife-tagline.png"
+          src={tagline.src}
           alt=""
-          width={388}
-          height={54}
+          width={tagline.width}
+          height={tagline.height}
           className="mt-0.5 h-2.5 w-auto"
         />
       </span>

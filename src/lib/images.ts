@@ -1,5 +1,43 @@
 /** Local image assets — avoids broken remote Unsplash URLs. */
 export const images = {
+  brand: {
+    logo: {
+      src: "/images/mavife-logo.png",
+      alt: "Mavife — Atelier Verde",
+      width: 1024,
+      height: 1024,
+    },
+    background: {
+      src: "/images/mavife-background.png",
+      alt: "Textura mármore verde Mavife",
+      width: 1024,
+      height: 1024,
+    },
+    avatar: {
+      src: "/images/mavife-avatar.png",
+      alt: "Ícone botânico dourado Mavife sobre mármore verde",
+      width: 1024,
+      height: 1024,
+    },
+    plant: {
+      src: "/images/mavife-plant.png",
+      alt: "Ícone botânico Mavife",
+      width: 512,
+      height: 512,
+    },
+    name: {
+      src: "/images/mavife-name.png",
+      alt: "Mavife",
+      width: 632,
+      height: 206,
+    },
+    tagline: {
+      src: "/images/mavife-tagline.png",
+      alt: "Atelier Verde",
+      width: 388,
+      height: 54,
+    },
+  },
   heroMonstera: {
     src: "/images/hero-monstera.jpg",
     alt: "Costela-de-adão em prateleira com decoração de interiores",
@@ -18,35 +56,29 @@ export const images = {
     width: 1200,
     height: 900,
   },
-  arrangementTropical: {
-    src: "/images/arrangement-tropical.jpg",
-    alt: "Buquê tropical com flores coloridas",
-    width: 800,
-    height: 1000,
-  },
-  arrangementWhite: {
-    src: "/images/arrangement-white.jpg",
-    alt: "Arranjo branco elegante com flores",
-    width: 800,
-    height: 1000,
-  },
-  arrangementSucculent: {
-    src: "/images/arrangement-succulent.jpg",
-    alt: "Composição de suculentas em decoração",
-    width: 800,
-    height: 1000,
-  },
   arrangementCenterpiece: {
     src: "/images/arrangement-centerpiece.jpg",
-    alt: "Planta em vaso artesanal — centro de decoração",
+    alt: "Centro de mesa com folhagens em vaso cerâmico sobre bandeja de madeira",
+    width: 800,
+    height: 1000,
+  },
+  arrangementHydroponic: {
+    src: "/images/arrangement-hydroponic.jpg",
+    alt: "Planta com raízes visíveis em vaso de vidro com água",
+    width: 800,
+    height: 1000,
+  },
+  arrangementPots: {
+    src: "/images/arrangement-pots.jpg",
+    alt: "Prateleira com vasos e plantas de diferentes tamanhos",
     width: 800,
     height: 1000,
   },
   aboutFlorist: {
-    src: "/images/about-florist.jpg",
-    alt: "Mãos artesãs cuidando de plantas e flores",
-    width: 800,
-    height: 600,
+    src: "/images/mavife-avatar.png",
+    alt: "Ícone botânico dourado Mavife sobre mármore verde",
+    width: 1024,
+    height: 1024,
   },
   interiorPlants: {
     src: "/images/interior-plants.jpg",

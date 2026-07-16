@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { site, siteContent } from "@/lib/content";
+import { site } from "@/lib/content";
+import { images } from "@/lib/images";
 import { getSiteUrl } from "@/lib/site-url";
 
 const siteUrl = getSiteUrl();
@@ -10,10 +11,10 @@ const sharedOpenGraph = {
   siteName: site.name,
   images: [
     {
-      url: siteContent.hero.image.src,
-      width: siteContent.hero.image.width,
-      height: siteContent.hero.image.height,
-      alt: siteContent.hero.image.alt,
+      url: images.brand.logo.src,
+      width: images.brand.logo.width,
+      height: images.brand.logo.height,
+      alt: images.brand.logo.alt,
     },
   ],
 };
@@ -38,7 +39,7 @@ export const rootMetadata: Metadata = {
     card: "summary_large_image",
     title: site.title,
     description: site.description,
-    images: [siteContent.hero.image.src],
+    images: [images.brand.logo.src],
   },
 };
 
@@ -69,7 +70,7 @@ export function createPageMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: [siteContent.hero.image.src],
+      images: [images.brand.logo.src],
     },
   };
 }

@@ -64,19 +64,19 @@ export const siteContent = {
         title: "Centros de mesa",
         description:
           "Decorados com plantas de alto valor decorativo e baixa manutenção. Artesanal e vivo.",
-        image: images.arrangementWhite,
+        image: images.arrangementCenterpiece,
       },
       {
         title: "Hidroponia",
         description:
           "Plantas em água, fácil de manter, ideal para ambientes internos ou externos. Delicado e duradouro.",
-        image: images.arrangementCenterpiece,
+        image: images.arrangementHydroponic,
       },
       {
         title: "Vasos e vasinhos",
         description:
           "Variedade de formas e tamanhos, desde a mesa de cabeceira até a varanda. Natural e essencial.",
-        image: images.arrangementSucculent,
+        image: images.arrangementPots,
       },
     ] satisfies readonly ArrangementItem[],
   },
