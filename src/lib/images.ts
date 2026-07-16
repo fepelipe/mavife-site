@@ -58,13 +58,13 @@ export const images = {
   },
   arrangementCenterpiece: {
     src: "/images/arrangement-centerpiece.jpg",
-    alt: "Centro de mesa com folhagens em vaso cerâmico sobre bandeja de madeira",
+    alt: "Mini jardim de suculentas em bowl cerâmico claro com areia e pedras",
     width: 800,
     height: 1000,
   },
   arrangementHydroponic: {
     src: "/images/arrangement-hydroponic.jpg",
-    alt: "Planta com raízes visíveis em vaso de vidro com água",
+    alt: "Estacas delicadas em copos de vidro com água sobre jogo americano",
     width: 800,
     height: 1000,
   },
