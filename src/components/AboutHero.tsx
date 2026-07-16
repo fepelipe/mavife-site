@@ -19,7 +19,7 @@ export function AboutHero() {
         </div>
         <div className="flex flex-col gap-6">
           <p className="text-sm font-semibold tracking-[0.2em] text-accent uppercase">
-            {site.tagline} · Manaus
+            {site.tagline} · Manaus, AM
           </p>
           <h1 className="text-h2 text-jungle">{about.title}</h1>
           <p className="text-body text-muted">{about.bio}</p>
