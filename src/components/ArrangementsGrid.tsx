@@ -13,12 +13,12 @@ export function ArrangementsGrid() {
         <p className="max-w-prose text-body text-muted">{arrangements.description}</p>
       </div>
       <ul className="grid gap-10 lg:grid-cols-3">
-        {arrangements.items.map((item, index) => (
+        {arrangements.items.map((item) => (
           <li
             key={item.title}
-            className={`group flex flex-col gap-5 ${index === 1 ? "lg:mt-12" : ""}`}
+            className="group flex flex-col gap-5"
           >
-            <div className="woven-border relative aspect-[4/5] overflow-hidden">
+            <div className="woven-border relative aspect-4/5 overflow-hidden">
               <Image
                 src={item.image.src}
                 alt={item.image.alt}

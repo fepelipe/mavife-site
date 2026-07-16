@@ -21,11 +21,7 @@ export function ContactSection() {
         >
           {contact.whatsapp.label}
         </Link>
-        <dl className="mt-10 grid gap-4 text-body text-muted sm:grid-cols-2">
-          <div>
-            <dt className="font-semibold text-ink">Horário</dt>
-            <dd>{contact.hours}</dd>
-          </div>
+        <dl className="mt-10 grid gap-4 text-body text-muted">
           <div>
             <dt className="font-semibold text-ink">Local</dt>
             <dd>{contact.address}</dd>

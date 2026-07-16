@@ -8,7 +8,7 @@ export const script = Dancing_Script({
   variable: "--font-dancing",
 });
 
-/** Geometric sans for headings and subheadings ("Home Decor"). */
+/** Geometric sans for headings and subheadings ("Atelier Verde"). */
 export const heading = Montserrat({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
