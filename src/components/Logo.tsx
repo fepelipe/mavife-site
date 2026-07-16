@@ -23,10 +23,21 @@ export function Logo({ className }: LogoProps) {
         className="h-10 w-auto transition-transform duration-200 group-hover:scale-105"
       />
       <span className="flex flex-col leading-none">
-        <span className="font-script text-2xl font-bold leading-none text-ink">{site.name}</span>
-        <span className="font-heading text-[0.6rem] font-semibold tracking-[0.25em] text-accent uppercase">
-          {site.tagline}
-        </span>
+        <Image
+          src="/images/mavife-name.png"
+          alt=""
+          width={632}
+          height={206}
+          priority
+          className="h-6 w-auto"
+        />
+        <Image
+          src="/images/mavife-tagline.png"
+          alt=""
+          width={388}
+          height={54}
+          className="mt-0.5 h-2.5 w-auto"
+        />
       </span>
     </Link>
   );
