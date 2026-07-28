@@ -73,7 +73,7 @@ function PostTile({
         href={post.permalink}
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative block h-full overflow-hidden bg-surface focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        className="group relative block h-full overflow-hidden rounded-soft bg-surface focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
         aria-label={post.caption ? `Abrir no Instagram: ${post.caption}` : "Abrir publicação no Instagram"}
       >
         <Image
@@ -122,7 +122,7 @@ function PostTile({
           >
             Ir ao post
           </span>
-          <span className="flex size-8 items-center justify-center rounded-sm bg-ink/45 text-clay shadow-sm backdrop-blur-sm transition-colors duration-300 group-hover:bg-ink/65 group-focus-visible:bg-ink/65">
+          <span className="flex size-8 items-center justify-center rounded-soft bg-ink/45 text-clay shadow-sm backdrop-blur-sm transition-colors duration-300 group-hover:bg-ink/65 group-focus-visible:bg-ink/65">
             <ExternalLinkIcon className="size-3.5" />
           </span>
         </div>
@@ -214,7 +214,7 @@ export function InstagramGallery({ posts }: { posts: GalleryPost[] }) {
   }, [posts, entranceDelays, visible]);
 
   return (
-    <ul className="grid w-full auto-rows-fr grid-cols-2 gap-0 md:grid-cols-3">
+    <ul className="grid w-full auto-rows-fr grid-cols-2 gap-1.5 md:grid-cols-3 md:gap-2">
       {posts.map((post, index) => (
         <PostTile
           key={post.id}

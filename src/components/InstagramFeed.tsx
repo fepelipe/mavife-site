@@ -11,14 +11,14 @@ export async function InstagramFeed() {
   const username = gallery.username || instagramFeed.username;
 
   return (
-    <section id="instagram" className="bg-surface py-16 md:py-24">
+    <section id="instagram" className="section-y bg-surface">
       <div className="section-x mx-auto mb-10 flex max-w-content flex-col gap-4 md:mb-14 md:flex-row md:items-end md:justify-between">
         <div className="flex flex-col gap-3">
           <Link
             href={gallery.profileUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group/profile inline-flex w-fit items-center gap-3 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            className="group/profile inline-flex w-fit items-center gap-3 rounded-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             {gallery.profilePictureUrl ? (
               <Image
@@ -51,7 +51,7 @@ export async function InstagramFeed() {
         <InstagramGallery posts={gallery.posts} />
       ) : (
         <div className="section-x mx-auto max-w-content">
-          <div className="border border-clay/30 bg-white p-10 text-center">
+          <div className="rounded-soft border border-clay/30 bg-white p-10 text-center">
             <p className="text-body text-muted">
               {gallery.unavailable
                 ? "As publicações do Instagram estão temporariamente indisponíveis. Volte em breve ou acompanhe pelo perfil."

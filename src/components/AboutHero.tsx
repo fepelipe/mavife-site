@@ -5,7 +5,7 @@ export function AboutHero() {
   const { about } = siteContent;
 
   return (
-    <section className="section-x bg-surface py-16 md:py-24">
+    <section className="section-x section-y bg-surface">
       <div className="mx-auto grid max-w-content items-center gap-12 md:grid-cols-2 md:gap-16">
         <div className="woven-border relative aspect-[4/5] overflow-hidden">
           <Image

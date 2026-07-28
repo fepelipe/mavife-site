@@ -6,16 +6,16 @@ export function ContactSection() {
   const { contact } = siteContent;
 
   return (
-    <section id={contact.id} className="section-x bg-surface pt-8 pb-16 md:pt-10 md:pb-20">
+    <section id={contact.id} className="section-x section-y bg-surface">
       <div
-        className="woven-border mx-auto max-w-2xl bg-white/95 p-10 text-center md:p-14"
+        className="woven-border mx-auto max-w-2xl overflow-hidden bg-white/95 p-10 text-center md:p-14"
         style={{
           backgroundImage: `url(${images.brand.background.src})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
-        <div className="rounded-sm bg-white/90 p-8 backdrop-blur-sm md:p-10">
+        <div className="rounded-soft bg-white/90 p-8 backdrop-blur-sm md:p-10">
           <h2 className="text-h2 mb-8 text-ink">{contact.title}</h2>
           <Link
             href={contact.whatsapp.href}

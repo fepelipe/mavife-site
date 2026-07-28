@@ -52,12 +52,24 @@
   }
 }
 
+@utility section-y {
+  padding-block: 4rem;
+
+  @media (width >= 48rem) {
+    padding-block: 6rem;
+  }
+}
+
 @utility section-x-nav {
   padding-inline: 1.875rem;
 
   @media (width >= 48rem) {
     padding-inline: 3.125rem;
   }
+}
+
+@utility rounded-soft {
+  border-radius: 0.5rem;
 }
 
 @utility btn-primary {
@@ -68,6 +80,7 @@
   background-color: var(--color-accent);
   padding-inline: 2rem;
   padding-block: 1rem;
+  border-radius: 0.5rem;
   font-size: 0.9375rem;
   line-height: 1.5;
   font-weight: 600;
@@ -88,6 +101,7 @@
 
 @utility woven-border {
   border: 2px solid var(--color-clay);
+  border-radius: 0.5rem;
   box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-clay) 40%, transparent);
 }
 
