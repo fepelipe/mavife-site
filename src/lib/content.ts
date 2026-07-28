@@ -68,7 +68,7 @@ export const siteContent = {
     { label: "Ateliê", href: "/#atelie" },
     { label: "Instagram", href: "/#instagram" },
     { label: "Sobre", href: "/about" },
-    { label: "FAQ", href: "/about#perguntas" },
+    { label: "Perguntas", href: "/about#perguntas" },
     { label: "Contato", href: "/#contato" },
   ] satisfies readonly NavItem[],
   hero: {
@@ -140,13 +140,14 @@ export const siteContent = {
   contact: {
     id: "contato",
     title: "Vamos criar juntos",
-    description: "",
+    description:
+      "Conte o ambiente e a ocasião. Montamos uma proposta artesanal e alinhamos entrega em Manaus.",
     locality: "Manaus",
     region: "AM",
     country: "Brasil",
     serviceArea: "Entregas na capital e região metropolitana",
     whatsapp: {
-      label: "WhatsApp",
+      label: "Encomendar pelo WhatsApp",
       href: getWhatsAppUrl("Olá! Gostaria de encomendar uma peça de decoração artesanal."),
       number: formatWhatsAppNumber(),
     },

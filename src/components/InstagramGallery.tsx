@@ -19,7 +19,7 @@ const TILE_LAYOUT = [
 
 /** Crossfade length for album frames (ms). */
 const FADE_MS = 1600;
-/** Pause after entrance before the first pair starts. */
+/** Pause after the gallery enters view before the first pair starts. */
 const AFTER_LOAD_MS = 2200;
 /** Pause after the second tile finishes before picking the next pair. */
 const BETWEEN_PAIRS_MS = 1800;
@@ -27,10 +27,6 @@ const BETWEEN_PAIRS_MS = 1800;
 function prefersReducedMotion(): boolean {
   if (typeof window === "undefined") return false;
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-
-function shuffleDelays(count: number, maxMs: number): number[] {
-  return Array.from({ length: count }, () => Math.floor(Math.random() * maxMs));
 }
 
 function pickTwoDistinct(count: number, prefer: number[]): [number, number] | null {
@@ -50,35 +46,28 @@ function pickTwoDistinct(count: number, prefer: number[]): [number, number] | nu
 function PostTile({
   post,
   className,
-  entranceDelay,
   frameIndex,
   isFading,
-  visible,
   reduceMotion,
+  priority,
 }: {
   post: GalleryPost;
   className: string;
-  entranceDelay: number;
   frameIndex: number;
   isFading: boolean;
-  visible: boolean;
   reduceMotion: boolean;
+  priority?: boolean;
 }) {
   const frames = post.images.length > 0 ? post.images : [post.imageUrl];
   const current = frames[frameIndex % frames.length];
   const next = frames[(frameIndex + 1) % frames.length];
   const hasCarousel = frames.length > 1 && !reduceMotion;
+  const sizes = priority
+    ? "(max-width: 640px) 100vw, (max-width: 1024px) 66vw, 50vw"
+    : "(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw";
 
   return (
-    <li
-      className={cn(
-        "relative min-w-0",
-        reduceMotion ? "opacity-100" : "opacity-0 transition-opacity duration-700 ease-out",
-        !reduceMotion && visible && "opacity-100",
-        className,
-      )}
-      style={reduceMotion ? undefined : { transitionDelay: visible ? `${entranceDelay}ms` : "0ms" }}
-    >
+    <li className={cn("relative min-w-0", className)}>
       <Link
         href={post.permalink}
         target="_blank"
@@ -90,7 +79,8 @@ function PostTile({
           src={current}
           alt=""
           fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
+          sizes={sizes}
+          priority={priority}
           className={cn(
             "z-0 object-cover",
             !reduceMotion &&
@@ -102,7 +92,7 @@ function PostTile({
             src={next}
             alt=""
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
+            sizes={sizes}
             className={cn(
               "z-[1] object-cover transition-opacity ease-out",
               !reduceMotion && "group-hover:scale-105 group-focus-visible:scale-105",
@@ -153,8 +143,6 @@ function PostTile({
 export function InstagramGallery({ posts }: { posts: GalleryPost[] }) {
   const [reduceMotion, setReduceMotion] = useState(false);
   const [inView, setInView] = useState(false);
-  const [entranceDelays, setEntranceDelays] = useState(() => posts.map(() => 0));
-  const [visible, setVisible] = useState(false);
   const [frameIndex, setFrameIndex] = useState(() => posts.map(() => 0));
   const [fading, setFading] = useState(() => posts.map(() => false));
   const rootRef = useRef<HTMLDivElement>(null);
@@ -179,19 +167,11 @@ export function InstagramGallery({ posts }: { posts: GalleryPost[] }) {
 
   useEffect(() => {
     if (!inView) return;
-    const reduced = prefersReducedMotion();
-    setReduceMotion(reduced);
-    if (reduced) {
-      setVisible(true);
-      return;
-    }
-    setEntranceDelays(shuffleDelays(posts.length, 900));
-    const id = requestAnimationFrame(() => setVisible(true));
-    return () => cancelAnimationFrame(id);
-  }, [posts.length, inView]);
+    setReduceMotion(prefersReducedMotion());
+  }, [inView]);
 
   useEffect(() => {
-    if (!inView || reduceMotion || posts.length < 2 || !visible) return;
+    if (!inView || reduceMotion || posts.length < 2) return;
 
     let cancelled = false;
     const timers: ReturnType<typeof setTimeout>[] = [];
@@ -215,26 +195,25 @@ export function InstagramGallery({ posts }: { posts: GalleryPost[] }) {
 
       const done = setTimeout(() => {
         if (cancelled) return;
+        // Advance base frame and clear fade in the same turn so the overlay
+        // never paints the *next* upcoming frame while still opaque.
         setFrameIndex((prev) => {
           const next = [...prev];
           const len = posts[index].images.length;
           next[index] = len > 0 ? (prev[index] + 1) % len : 0;
           return next;
         });
-        requestAnimationFrame(() => {
-          if (cancelled) return;
-          setFading((prev) => {
-            const next = [...prev];
-            next[index] = false;
-            return next;
-          });
+        setFading((prev) => {
+          const next = [...prev];
+          next[index] = false;
+          return next;
         });
       }, FADE_MS);
       timers.push(done);
     };
 
     const run = async () => {
-      await wait(AFTER_LOAD_MS + Math.max(0, ...entranceDelays) + 700);
+      await wait(AFTER_LOAD_MS);
       if (cancelled) return;
 
       while (!cancelled) {
@@ -261,7 +240,7 @@ export function InstagramGallery({ posts }: { posts: GalleryPost[] }) {
       cancelled = true;
       timers.forEach(clearTimeout);
     };
-  }, [posts, entranceDelays, visible, reduceMotion, inView]);
+  }, [posts, reduceMotion, inView]);
 
   return (
     <div ref={rootRef}>
@@ -280,11 +259,10 @@ export function InstagramGallery({ posts }: { posts: GalleryPost[] }) {
             key={post.id}
             post={post}
             className={TILE_LAYOUT[index] ?? "col-span-1 min-h-[12rem]"}
-            entranceDelay={entranceDelays[index] ?? 0}
             frameIndex={frameIndex[index] ?? 0}
             isFading={fading[index] ?? false}
-            visible={visible}
             reduceMotion={reduceMotion}
+            priority={index === 0}
           />
         ))}
       </ul>

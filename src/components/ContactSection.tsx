@@ -20,15 +20,18 @@ export function ContactSection() {
     >
       <div className="section-x mx-auto max-w-content">
         <div className="mx-auto max-w-2xl rounded-soft bg-white/90 p-8 text-center backdrop-blur-sm md:p-10">
-          <h2 id={TITLE_ID} className="text-h2 mb-8 text-ink">
+          <h2 id={TITLE_ID} className="text-h2 text-ink">
             {contact.title}
           </h2>
+          {contact.description ? (
+            <p className="text-body mx-auto mt-4 max-w-md text-muted">{contact.description}</p>
+          ) : null}
           <Link
             href={contact.whatsapp.href}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={externalLinkLabel("Falar no WhatsApp")}
-            className="btn-primary"
+            aria-label={externalLinkLabel(contact.whatsapp.label)}
+            className="btn-primary mt-8"
           >
             {contact.whatsapp.label}
           </Link>

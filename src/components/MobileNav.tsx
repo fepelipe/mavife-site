@@ -24,6 +24,14 @@ function MenuIcon({ open }: { open: boolean }) {
   );
 }
 
+function getFocusable(container: HTMLElement) {
+  return Array.from(
+    container.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    ),
+  ).filter((el) => !el.hasAttribute("disabled") && el.tabIndex !== -1);
+}
+
 export function MobileNav({ items }: { items: readonly NavItem[] }) {
   const [open, setOpen] = useState(false);
   const panelId = useId();
@@ -37,12 +45,35 @@ export function MobileNav({ items }: { items: readonly NavItem[] }) {
       if (event.key === "Escape") {
         setOpen(false);
         buttonRef.current?.focus();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const panel = panelRef.current;
+      const button = buttonRef.current;
+      if (!panel || !button) return;
+
+      const focusable = [button, ...getFocusable(panel)];
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+
+      if (event.shiftKey && active === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
       }
     };
 
     document.addEventListener("keydown", onKeyDown);
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    document.documentElement.dataset.navOpen = "true";
 
     const firstLink = panelRef.current?.querySelector<HTMLElement>("a");
     firstLink?.focus();
@@ -50,6 +81,7 @@ export function MobileNav({ items }: { items: readonly NavItem[] }) {
     return () => {
       document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = previousOverflow;
+      delete document.documentElement.dataset.navOpen;
     };
   }, [open]);
 
@@ -87,6 +119,9 @@ export function MobileNav({ items }: { items: readonly NavItem[] }) {
         <div
           ref={panelRef}
           id={panelId}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Menu de navegação"
           hidden={!open}
           className={cn(
             "absolute inset-x-0 top-full z-50 border-b border-white/10 bg-jungle/95 shadow-lg backdrop-blur-sm",

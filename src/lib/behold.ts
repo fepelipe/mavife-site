@@ -3,7 +3,8 @@
  * Fetch server-side only and cache aggressively so page traffic does not burn the quota.
  */
 
-export const BEHOLD_FEED_URL = "https://feeds.behold.so/skGWp890ne6rXfSgpKZo";
+export const BEHOLD_FEED_URL =
+  process.env.BEHOLD_FEED_URL ?? "https://feeds.behold.so/skGWp890ne6rXfSgpKZo";
 
 /** Free plan refreshes once daily; long ISR keeps Behold requests well under view limits. */
 const REVALIDATE_SECONDS = 60 * 60 * 12;
@@ -87,7 +88,6 @@ export type GalleryPost = {
   imageUrl: string;
   /** Album frames for CSS crossfade; length 1 when not a multi-image post. */
   images: string[];
-  dominantColor: string;
   isVideo: boolean;
 };
 
@@ -127,6 +127,15 @@ function collectImages(post: BeholdPost): string[] {
     if (cover) frames.push(cover);
   }
 
+  // VIDEO / Reel posts may only expose a Behold CDN thumbnail.
+  if (
+    frames.length === 0 &&
+    post.thumbnailUrl &&
+    isBeholdCdnUrl(post.thumbnailUrl)
+  ) {
+    frames.push(post.thumbnailUrl);
+  }
+
   return frames;
 }
 
@@ -146,7 +155,6 @@ function mapPost(post: BeholdPost): GalleryPost | null {
     alt,
     imageUrl: images[0],
     images,
-    dominantColor: "var(--color-surface)",
     isVideo: post.mediaType === "VIDEO" || Boolean(post.isReel),
   };
 }
