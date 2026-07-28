@@ -68,6 +68,7 @@ export const siteContent = {
     { label: "Ateliê", href: "/#atelie" },
     { label: "Instagram", href: "/#instagram" },
     { label: "Sobre", href: "/about" },
+    { label: "FAQ", href: "/about#perguntas" },
     { label: "Contato", href: "/#contato" },
   ] satisfies readonly NavItem[],
   hero: {
