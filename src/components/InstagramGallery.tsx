@@ -59,6 +59,7 @@ function PostTile({
   const frames = post.images.length > 0 ? post.images : [post.imageUrl];
   const current = frames[frameIndex % frames.length];
   const next = frames[(frameIndex + 1) % frames.length];
+  const hasCarousel = frames.length > 1;
 
   return (
     <li
@@ -73,26 +74,27 @@ function PostTile({
         href={post.permalink}
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative block h-full overflow-hidden rounded-soft bg-surface focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        className="group relative block h-full overflow-hidden rounded-soft focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
         aria-label={post.caption ? `Abrir no Instagram: ${post.caption}` : "Abrir publicação no Instagram"}
       >
+        {/* Base stays fully opaque so the tile never flashes through to the page. */}
         <Image
           src={current}
           alt={post.alt}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
-          className={cn(
-            "object-cover transition-[opacity,transform] ease-out group-hover:scale-105 group-focus-visible:scale-105",
-            isFading ? "opacity-0 duration-[1600ms]" : "opacity-100 duration-500",
-          )}
+          className="z-0 object-cover transition-transform duration-700 ease-out group-hover:scale-105 group-focus-visible:scale-105"
         />
-        {isFading && frames.length > 1 ? (
+        {hasCarousel ? (
           <Image
             src={next}
             alt=""
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
-            className="object-cover opacity-0 animate-[ig-frame-in_1600ms_ease-out_forwards] group-hover:scale-105"
+            className={cn(
+              "z-[1] object-cover transition-[opacity,transform] ease-out group-hover:scale-105 group-focus-visible:scale-105",
+              isFading ? "opacity-100 duration-[1600ms]" : "opacity-0 duration-0",
+            )}
           />
         ) : null}
 
@@ -168,16 +170,21 @@ export function InstagramGallery({ posts }: { posts: GalleryPost[] }) {
 
       const done = setTimeout(() => {
         if (cancelled) return;
+        // Commit the new frame first while the overlay is still fully opaque,
+        // then clear fading so the overlay resets without exposing the page.
         setFrameIndex((prev) => {
           const next = [...prev];
           const len = posts[index].images.length;
           next[index] = len > 0 ? (prev[index] + 1) % len : 0;
           return next;
         });
-        setFading((prev) => {
-          const next = [...prev];
-          next[index] = false;
-          return next;
+        requestAnimationFrame(() => {
+          if (cancelled) return;
+          setFading((prev) => {
+            const next = [...prev];
+            next[index] = false;
+            return next;
+          });
         });
       }, FADE_MS);
       timers.push(done);

@@ -125,15 +125,13 @@ body {
   white-space: normal;
 }
 
-/* Instagram album frame crossfade (client-driven). */
+/* Soft incoming-frame cue (optional; gallery prefers opacity transitions). */
 @keyframes ig-frame-in {
-  0% {
+  from {
     opacity: 0;
-    transform: translate3d(4%, 0, 0);
   }
-  100% {
+  to {
     opacity: 1;
-    transform: translate3d(0, 0, 0);
   }
 }
 
