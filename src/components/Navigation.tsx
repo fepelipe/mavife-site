@@ -6,7 +6,7 @@ import { siteContent } from "@/lib/content";
 export function Navigation() {
   return (
     <header className="sticky top-0 z-40">
-      <div className="marble-nav section-x-nav border-b border-white/10">
+      <div className="marble-nav section-x-nav">
         <div className="mx-auto flex max-w-site items-center justify-between py-4">
           <Logo onDark />
 

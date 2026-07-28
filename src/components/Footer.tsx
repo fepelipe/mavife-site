@@ -7,7 +7,7 @@ export function Footer() {
   const { contact } = siteContent;
 
   return (
-    <footer className="section-x border-t border-clay/30 bg-jungle py-10 text-white/70">
+    <footer className="section-x bg-jungle py-10 text-white/70">
       <div className="mx-auto flex max-w-content flex-col items-start justify-between gap-6 text-sm sm:flex-row sm:items-center">
         <div className="flex flex-col gap-1">
           <p className="font-semibold text-white/90">{site.name}</p>
