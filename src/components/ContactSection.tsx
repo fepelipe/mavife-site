@@ -13,17 +13,13 @@ export function ContactSection() {
       id={contact.id}
       aria-labelledby={TITLE_ID}
       tabIndex={-1}
-      className="section-x section-y bg-surface"
+      className="section-y bg-cover bg-center"
+      style={{
+        backgroundImage: `url(${images.brand.background.src})`,
+      }}
     >
-      <div
-        className="woven-border mx-auto max-w-2xl overflow-hidden bg-white/95 p-10 text-center md:p-14"
-        style={{
-          backgroundImage: `url(${images.brand.background.src})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="rounded-soft bg-white/90 p-8 backdrop-blur-sm md:p-10">
+      <div className="section-x mx-auto max-w-content">
+        <div className="mx-auto max-w-2xl rounded-soft bg-white/90 p-8 text-center backdrop-blur-sm md:p-10">
           <h2 id={TITLE_ID} className="text-h2 mb-8 text-ink">
             {contact.title}
           </h2>
