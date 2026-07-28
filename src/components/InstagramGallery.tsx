@@ -74,7 +74,7 @@ function PostTile({
         href={post.permalink}
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative block h-full overflow-hidden rounded-soft focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        className="group relative block h-full overflow-hidden focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
         aria-label={post.caption ? `Abrir no Instagram: ${post.caption}` : "Abrir publicação no Instagram"}
       >
         {/* Base stays fully opaque so the tile never flashes through to the page. */}
