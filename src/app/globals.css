@@ -12,8 +12,9 @@
   --color-leaf: var(--color-leaf);
   --color-jungle: var(--color-jungle);
   --color-clay: var(--color-clay);
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-heading: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  /* System stack: Helvetica first (macOS/iOS), Arial on Windows, then generic. */
+  --font-sans: Helvetica, "Helvetica Neue", Arial, ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-montserrat), Helvetica, "Helvetica Neue", Arial, ui-sans-serif, sans-serif;
   --max-width-site: 1280px;
   --max-width-content: 1080px;
 }
