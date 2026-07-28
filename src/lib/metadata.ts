@@ -5,19 +5,30 @@ import { getSiteUrl } from "@/lib/site-url";
 
 const siteUrl = getSiteUrl();
 
+const ogImage = {
+  url: images.og.src,
+  width: images.og.width,
+  height: images.og.height,
+  alt: images.og.alt,
+};
+
 const sharedOpenGraph = {
   type: "website" as const,
   locale: "pt_BR",
   siteName: site.name,
-  images: [
-    {
-      url: images.brand.logo.src,
-      width: images.brand.logo.width,
-      height: images.brand.logo.height,
-      alt: images.brand.logo.alt,
-    },
-  ],
+  images: [ogImage],
 };
+
+function languageAlternates(path: string) {
+  const normalized = path === "/" ? "/" : path;
+  return {
+    canonical: normalized,
+    languages: {
+      "pt-BR": normalized,
+      "x-default": normalized,
+    },
+  };
+}
 
 export const rootMetadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -26,9 +37,22 @@ export const rootMetadata: Metadata = {
     template: `%s | ${site.name}`,
   },
   description: site.description,
-  alternates: {
-    canonical: "/",
-  },
+  applicationName: site.name,
+  authors: [{ name: site.name, url: siteUrl }],
+  creator: site.name,
+  publisher: site.name,
+  category: "floricultura",
+  keywords: [
+    "Mavife Atelier Verde",
+    "floricultura Manaus",
+    "arranjos artesanais Manaus",
+    "decoração com plantas",
+    "centros de mesa",
+    "hidroponia",
+    "kokedama",
+    "flora amazônica",
+  ],
+  alternates: languageAlternates("/"),
   openGraph: {
     ...sharedOpenGraph,
     title: site.title,
@@ -39,7 +63,11 @@ export const rootMetadata: Metadata = {
     card: "summary_large_image",
     title: site.title,
     description: site.description,
-    images: [images.brand.logo.src],
+    images: [images.og.src],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
@@ -57,9 +85,7 @@ export function createPageMetadata({
   return {
     title,
     description,
-    alternates: {
-      canonical: path,
-    },
+    alternates: languageAlternates(path),
     openGraph: {
       ...sharedOpenGraph,
       title,
@@ -70,7 +96,7 @@ export function createPageMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: [images.brand.logo.src],
+      images: [images.og.src],
     },
   };
 }

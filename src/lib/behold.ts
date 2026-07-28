@@ -75,8 +75,8 @@ export type BeholdFeed = {
   posts: BeholdPost[];
 };
 
-/** Max carousel frames per tile — keeps CDN load light on the free plan. */
-const CAROUSEL_FRAME_LIMIT = 5;
+/** Max carousel frames per tile - keeps CDN load light on the free plan. */
+const CAROUSEL_FRAME_LIMIT = 4;
 
 export type GalleryPost = {
   id: string;

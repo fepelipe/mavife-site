@@ -14,7 +14,6 @@
   --color-clay: var(--color-clay);
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
-  --font-script: var(--font-dancing), "Brush Script MT", cursive;
   --max-width-site: 1280px;
   --max-width-content: 1080px;
 }
@@ -181,7 +180,7 @@ body {
       color-mix(in srgb, var(--color-jungle) 55%, transparent),
       color-mix(in srgb, var(--color-jungle) 35%, transparent)
     ),
-    url("/images/mavife-background.png");
+    url("/images/mavife-background-nav.webp");
   background-size: cover;
   background-position: center;
 }

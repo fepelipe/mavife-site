@@ -8,7 +8,9 @@ export type ImageAsset = {
   alt: string;
   width?: number;
   height?: number;
+  blurDataURL?: string;
 };
+
 
 export type ArrangementItem = {
   title: string;
@@ -20,3 +22,9 @@ export type ServiceItem = {
   title: string;
   description: string;
 };
+
+export type FaqItem = {
+  question: string;
+  answer: string;
+};
+

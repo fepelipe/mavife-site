@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { externalLinkLabel } from "@/lib/a11y";
-import { siteContent } from "@/lib/content";
+import { site, siteContent } from "@/lib/content";
 import { images } from "@/lib/images";
 
 const TITLE_ID = "contato-heading";
@@ -36,10 +36,44 @@ export function ContactSection() {
           >
             {contact.whatsapp.label}
           </Link>
-          <dl className="mt-10 grid gap-4 text-body text-muted">
+          <dl className="mt-10 grid gap-5 text-left text-body text-muted sm:text-center">
             <div>
               <dt className="font-semibold text-ink">Local</dt>
-              <dd className="whitespace-pre-line">{contact.address}</dd>
+              <dd>
+                <span className="block">{site.name}</span>
+                <span className="block">
+                  {contact.locality}, {contact.region}, {contact.country}
+                </span>
+                <span className="mt-1 block">{contact.serviceArea}</span>
+              </dd>
+            </div>
+            <div>
+              <dt className="font-semibold text-ink">WhatsApp</dt>
+              <dd>
+                <Link
+                  href={contact.whatsapp.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={externalLinkLabel(`WhatsApp ${contact.whatsapp.number}`)}
+                  className="rounded-soft text-leaf underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf"
+                >
+                  {contact.whatsapp.number}
+                </Link>
+              </dd>
+            </div>
+            <div>
+              <dt className="font-semibold text-ink">Instagram</dt>
+              <dd>
+                <Link
+                  href={contact.instagram.href}
+                  target="_blank"
+                  rel="noopener noreferrer me"
+                  aria-label={externalLinkLabel(`Instagram ${contact.instagram.label}`)}
+                  className="rounded-soft text-leaf underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf"
+                >
+                  {contact.instagram.label}
+                </Link>
+              </dd>
             </div>
           </dl>
         </div>

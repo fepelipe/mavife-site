@@ -4,7 +4,7 @@ import { Navigation } from "@/components/Navigation";
 import { SkipLink } from "@/components/SkipLink";
 import { VercelInsights } from "@/components/VercelInsights";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
-import { script, heading, body } from "@/lib/fonts";
+import { heading, body } from "@/lib/fonts";
 import { cssVariables, themeColor } from "@/lib/colors";
 import { rootMetadata } from "@/lib/metadata";
 import "./globals.css";
@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${script.variable} ${heading.variable} ${body.variable} h-full`}
+      className={`${heading.variable} ${body.variable} h-full`}
       style={cssVariables as React.CSSProperties}
     >
       <body className="min-h-full bg-white font-sans text-ink antialiased">

@@ -1,25 +1,18 @@
-import { Dancing_Script, Montserrat, Inter } from "next/font/google";
+import { Montserrat, Inter } from "next/font/google";
 
-/** Cursive highlight font — brand wordmark and rare accent words ("Mavife"). */
-export const script = Dancing_Script({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-  variable: "--font-dancing",
-});
-
-/** Geometric sans for headings and subheadings ("Atelier Verde"). */
+/** Geometric sans for headings. */
 export const heading = Montserrat({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["600"],
   display: "swap",
   variable: "--font-montserrat",
+  adjustFontFallback: true,
 });
 
-/** Default reading font — body copy and UI text. */
+/** Default reading font - body copy and UI text. */
 export const body = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600"],
   display: "swap",
   variable: "--font-inter",
   adjustFontFallback: true,

@@ -29,7 +29,6 @@ export function Logo({ className, onDark = false }: LogoProps) {
         alt=""
         width={plant.width}
         height={plant.height}
-        priority
         className={cn("h-10 w-auto transition-transform duration-200 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100", blend)}
       />
       <span className="flex flex-col leading-none">
@@ -38,7 +37,6 @@ export function Logo({ className, onDark = false }: LogoProps) {
           alt=""
           width={name.width}
           height={name.height}
-          priority
           className={cn("h-6 w-auto", blend)}
         />
         <Image

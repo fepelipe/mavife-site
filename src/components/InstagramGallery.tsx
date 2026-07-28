@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ExternalLinkIcon } from "@/components/icons/ExternalLinkIcon";
 import { instagramPostLabel } from "@/lib/a11y";
 import type { GalleryPost } from "@/lib/behold";
@@ -152,12 +152,33 @@ function PostTile({
 
 export function InstagramGallery({ posts }: { posts: GalleryPost[] }) {
   const [reduceMotion, setReduceMotion] = useState(false);
+  const [inView, setInView] = useState(false);
   const [entranceDelays, setEntranceDelays] = useState(() => posts.map(() => 0));
   const [visible, setVisible] = useState(false);
   const [frameIndex, setFrameIndex] = useState(() => posts.map(() => 0));
   const [fading, setFading] = useState(() => posts.map(() => false));
+  const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const node = rootRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px 0px", threshold: 0.05 },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!inView) return;
     const reduced = prefersReducedMotion();
     setReduceMotion(reduced);
     if (reduced) {
@@ -167,10 +188,10 @@ export function InstagramGallery({ posts }: { posts: GalleryPost[] }) {
     setEntranceDelays(shuffleDelays(posts.length, 900));
     const id = requestAnimationFrame(() => setVisible(true));
     return () => cancelAnimationFrame(id);
-  }, [posts.length]);
+  }, [posts.length, inView]);
 
   useEffect(() => {
-    if (reduceMotion || posts.length < 2 || !visible) return;
+    if (!inView || reduceMotion || posts.length < 2 || !visible) return;
 
     let cancelled = false;
     const timers: ReturnType<typeof setTimeout>[] = [];
@@ -240,10 +261,10 @@ export function InstagramGallery({ posts }: { posts: GalleryPost[] }) {
       cancelled = true;
       timers.forEach(clearTimeout);
     };
-  }, [posts, entranceDelays, visible, reduceMotion]);
+  }, [posts, entranceDelays, visible, reduceMotion, inView]);
 
   return (
-    <>
+    <div ref={rootRef}>
       <p className="sr-only">
         {reduceMotion
           ? "Galeria com as últimas publicações do Instagram. Cada item abre a publicação correspondente em uma nova aba."
@@ -267,6 +288,6 @@ export function InstagramGallery({ posts }: { posts: GalleryPost[] }) {
           />
         ))}
       </ul>
-    </>
+    </div>
   );
 }

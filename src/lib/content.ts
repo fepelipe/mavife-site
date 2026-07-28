@@ -1,8 +1,11 @@
-import type { NavItem, ArrangementItem, ServiceItem } from "./types";
+import type { NavItem, ArrangementItem, ServiceItem, FaqItem } from "./types";
 import { images } from "./images";
 
-/** International format, digits only — Manaus area (92). */
-const WHATSAPP_NUMBER = "5592986453321";
+/** International format, digits only - Manaus area (92). */
+export const WHATSAPP_NUMBER = "5592986453321";
+export const WHATSAPP_E164 = `+${WHATSAPP_NUMBER}`;
+export const INSTAGRAM_USERNAME = "mavifeatelierverde";
+export const INSTAGRAM_URL = `https://www.instagram.com/${INSTAGRAM_USERNAME}/`;
 
 /** Display format derived from {@link WHATSAPP_NUMBER}. */
 export function formatWhatsAppNumber() {
@@ -22,18 +25,41 @@ export const site = {
   name: "Mavife Atelier Verde",
   tagline: "Atelier Verde",
   logoLabel: "Mavife Atelier Verde",
-  title: "Mavife Atelier Verde",
+  title: "Mavife Atelier Verde | Arranjos e decoração em Manaus",
   description:
-    "Decoração artesanal com flora amazônica, cestaria, suculentas e arranjos feitos à mão em Manaus. Peças únicas para transformar sua casa.",
+    "Floricultura artesanal em Manaus: centros de mesa, vasos, hidroponia e kokedamas com flora amazônica. Encomende pelo WhatsApp com entrega na capital e região metropolitana.",
 } as const;
 
-/** Instagram feed — Behold JSON widget (free plan: last 6 posts, server-cached). */
+/** Instagram feed - Behold JSON widget (free plan: last 6 posts, server-cached). */
 export const instagramFeed = {
-  username: "mavifeatelierverde",
+  username: INSTAGRAM_USERNAME,
   title: "No Instagram",
   description:
     "Acompanhe as últimas publicações do atelier. Arranjos, bastidores e dicas para deixar a sua rotina mais verde.",
 } as const;
+
+export const faqs = [
+  {
+    question: "A Mavife Atelier Verde entrega em Manaus?",
+    answer:
+      "Sim. Atendemos Manaus e a região metropolitana. Combinamos o frete e o horário de entrega pelo WhatsApp conforme o bairro.",
+  },
+  {
+    question: "Como faço uma encomenda?",
+    answer:
+      "Fale conosco pelo WhatsApp, conte o ambiente, o estilo e a ocasião. Montamos uma proposta artesanal e alinhamos prazo e entrega.",
+  },
+  {
+    question: "Quais peças vocês criam?",
+    answer:
+      "Centros de mesa, vasos e vasinhos, hidroponia, kokedamas e composições sob medida para casa, escritório e presentes.",
+  },
+  {
+    question: "As plantas exigem muita manutenção?",
+    answer:
+      "Selecionamos espécies de alto valor decorativo e, em geral, baixa manutenção. Orientamos os cuidados básicos na entrega.",
+  },
+] as const satisfies readonly FaqItem[];
 
 export const siteContent = {
   nav: [
@@ -45,7 +71,7 @@ export const siteContent = {
     { label: "Contato", href: "/#contato" },
   ] satisfies readonly NavItem[],
   hero: {
-    eyebrow: "Atelier Verde - Manaus, AM",
+    eyebrow: "Manaus, AM",
     title: "Flora amazônica, da nossa casa para a sua",
     description:
       "Centros de mesa, vasos decorativos, hidroponia e kokedamas. Composições artesanais que trazem a floresta para dentro de casa, com delicadeza e cuidado.",
@@ -105,6 +131,8 @@ export const siteContent = {
   about: {
     name: site.name,
     title: "Raízes amazonenses, olhar artesanal",
+    description:
+      "Conheça a Mavife Atelier Verde em Manaus: decoração artesanal com flora amazônica, arranjos e plantas feitas à mão.",
     bio: "A Mavife Atelier Verde nasceu em Manaus do encontro entre a riqueza da flora amazônica e o gesto manual da jardinagem. Trabalhamos com plantas, formas orgânicas e técnicas precisas para criar decoração que respira. Peças pensadas para morar com você e fazer parte da sua história.",
     image: images.aboutFlorist,
   },
@@ -112,11 +140,19 @@ export const siteContent = {
     id: "contato",
     title: "Vamos criar juntos",
     description: "",
+    locality: "Manaus",
+    region: "AM",
+    country: "Brasil",
+    serviceArea: "Entregas na capital e região metropolitana",
     whatsapp: {
       label: "WhatsApp",
       href: getWhatsAppUrl("Olá! Gostaria de encomendar uma peça de decoração artesanal."),
       number: formatWhatsAppNumber(),
     },
     address: "Manaus, AM\nEntregas na capital e região metropolitana",
+    instagram: {
+      label: `@${INSTAGRAM_USERNAME}`,
+      href: INSTAGRAM_URL,
+    },
   },
 } as const;
