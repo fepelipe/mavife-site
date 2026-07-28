@@ -72,7 +72,7 @@ function PostTile({
   return (
     <li
       className={cn(
-        "min-w-0",
+        "relative min-w-0",
         reduceMotion ? "opacity-100" : "opacity-0 transition-opacity duration-700 ease-out",
         !reduceMotion && visible && "opacity-100",
         className,
@@ -83,7 +83,7 @@ function PostTile({
         href={post.permalink}
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative block h-full overflow-hidden focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        className="group absolute inset-0 block overflow-hidden focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent"
         aria-label={instagramPostLabel({ caption: post.caption, isVideo: post.isVideo })}
       >
         <Image
@@ -249,7 +249,11 @@ export function InstagramGallery({ posts }: { posts: GalleryPost[] }) {
           ? "Galeria com as últimas publicações do Instagram. Cada item abre a publicação correspondente em uma nova aba."
           : "Galeria com as últimas publicações do Instagram. As imagens de álbuns podem alternar automaticamente. Cada item abre a publicação correspondente em uma nova aba."}
       </p>
-      <ul className="grid w-full auto-rows-fr grid-cols-2 gap-0 md:grid-cols-3" aria-label="Publicações recentes no Instagram">
+      <ul
+        className="grid w-full auto-rows-fr grid-cols-2 gap-0 md:grid-cols-3"
+        style={{ gap: 0, columnGap: 0, rowGap: 0 }}
+        aria-label="Publicações recentes no Instagram"
+      >
         {posts.map((post, index) => (
           <PostTile
             key={post.id}
