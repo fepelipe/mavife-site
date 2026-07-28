@@ -13,15 +13,17 @@ export async function InstagramFeed() {
   const { title, description } = instagramFeed;
   const username = gallery.username || instagramFeed.username;
   const profileLabel = externalLinkLabel(`Ver perfil de @${username} no Instagram`);
+  const hasPosts = gallery.posts.length > 0;
 
   return (
     <section
       id="instagram"
       aria-labelledby={TITLE_ID}
       tabIndex={-1}
-      className="section-y bg-surface"
+      className="bg-surface"
     >
-      <div className="section-x mx-auto mb-10 flex max-w-content flex-col gap-4 md:mb-14 md:flex-row md:items-end md:justify-between">
+      {/* Section rhythm before the mosaic; no padding after the grid. */}
+      <div className="section-x mx-auto flex max-w-content flex-col gap-4 pt-16 pb-10 md:flex-row md:items-end md:justify-between md:pt-24 md:pb-14">
         <div className="flex flex-col gap-3">
           <Link
             href={gallery.profileUrl}
@@ -60,10 +62,10 @@ export async function InstagramFeed() {
         </Link>
       </div>
 
-      {gallery.posts.length > 0 ? (
+      {hasPosts ? (
         <InstagramGallery posts={gallery.posts} />
       ) : (
-        <div className="section-x mx-auto max-w-content">
+        <div className="section-x mx-auto max-w-content pb-16 md:pb-24">
           <div className="rounded-soft border border-clay/30 bg-white p-10 text-center" role="status">
             <p className="text-body text-muted">
               {gallery.unavailable
