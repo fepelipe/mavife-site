@@ -31,7 +31,8 @@ export const site = {
 export const instagramFeed = {
   username: "mavifeatelierverde",
   title: "No Instagram",
-  description: "Acompanhe as últimas publicações da Marly — arranjos, decoração e bastidores do ateliê.",
+  description:
+    "Acompanhe as últimas publicações do atelier, com arranjos, dicas e bastidores do nosso trabalho para você se inspirar todo dia.",
 } as const;
 
 export const siteContent = {

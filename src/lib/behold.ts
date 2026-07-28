@@ -75,20 +75,20 @@ export type BeholdFeed = {
   posts: BeholdPost[];
 };
 
+/** Max carousel frames per tile — keeps CDN load light on the free plan. */
+const CAROUSEL_FRAME_LIMIT = 5;
+
 export type GalleryPost = {
   id: string;
   permalink: string;
   caption: string;
   alt: string;
+  /** Primary / first frame (Behold CDN). */
   imageUrl: string;
-  imageSrcSet: {
-    small: string;
-    medium: string;
-    large: string;
-  };
+  /** Album frames for CSS crossfade; length 1 when not a multi-image post. */
+  images: string[];
   dominantColor: string;
   isVideo: boolean;
-  isCarousel: boolean;
 };
 
 export type InstagramGallery = {
@@ -109,39 +109,41 @@ function rgbToCss(rgb: string | undefined): string {
   return `rgb(${parts.join(" ")})`;
 }
 
-function pickImageUrls(post: BeholdPost): GalleryPost["imageSrcSet"] | null {
-  const sizes = post.sizes;
-  if (sizes?.small?.mediaUrl && sizes.medium?.mediaUrl && sizes.large?.mediaUrl) {
-    return {
-      small: sizes.small.mediaUrl,
-      medium: sizes.medium.mediaUrl,
-      large: sizes.large.mediaUrl,
-    };
+function isBeholdCdnUrl(url: string): boolean {
+  return url.includes("behold.pictures");
+}
+
+function mediumUrlFromSizes(sizes: BeholdPostSizes | undefined): string | null {
+  const url = sizes?.medium?.mediaUrl ?? sizes?.large?.mediaUrl ?? sizes?.small?.mediaUrl;
+  return url && isBeholdCdnUrl(url) ? url : null;
+}
+
+/** Collect Behold CDN frames — album children when present, otherwise the cover. */
+function collectImages(post: BeholdPost): string[] {
+  const frames: string[] = [];
+
+  if (post.children?.length) {
+    for (const child of post.children) {
+      if (child.mediaType === "VIDEO") continue;
+      const url = mediumUrlFromSizes(child.sizes);
+      if (url && !frames.includes(url)) frames.push(url);
+      if (frames.length >= CAROUSEL_FRAME_LIMIT) break;
+    }
   }
 
-  const childSizes = post.children?.find((child) => child.sizes?.medium?.mediaUrl)?.sizes;
-  if (childSizes?.small?.mediaUrl && childSizes.medium?.mediaUrl && childSizes.large?.mediaUrl) {
-    return {
-      small: childSizes.small.mediaUrl,
-      medium: childSizes.medium.mediaUrl,
-      large: childSizes.large.mediaUrl,
-    };
+  if (frames.length === 0) {
+    const cover = mediumUrlFromSizes(post.sizes);
+    if (cover) frames.push(cover);
   }
 
-  // Last resort — Instagram CDN URLs expire; prefer skipping over broken images.
-  const fallback = post.thumbnailUrl || post.mediaUrl;
-  if (!fallback || fallback.includes("cdninstagram.com") || fallback.includes("fbcdn.net")) {
-    return null;
-  }
-
-  return { small: fallback, medium: fallback, large: fallback };
+  return frames;
 }
 
 function mapPost(post: BeholdPost): GalleryPost | null {
   if (post.visibility && post.visibility !== "visible") return null;
 
-  const imageSrcSet = pickImageUrls(post);
-  if (!imageSrcSet) return null;
+  const images = collectImages(post);
+  if (images.length === 0) return null;
 
   const caption = (post.prunedCaption || post.caption || "").trim();
   const alt = (post.altText || caption || "Publicação no Instagram").trim();
@@ -151,11 +153,10 @@ function mapPost(post: BeholdPost): GalleryPost | null {
     permalink: post.permalink,
     caption,
     alt,
-    imageUrl: imageSrcSet.medium,
-    imageSrcSet,
+    imageUrl: images[0],
+    images,
     dominantColor: rgbToCss(post.colorPalette?.dominant),
     isVideo: post.mediaType === "VIDEO" || Boolean(post.isReel),
-    isCarousel: post.mediaType === "CAROUSEL_ALBUM",
   };
 }
 
