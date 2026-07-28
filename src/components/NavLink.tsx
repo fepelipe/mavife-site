@@ -14,8 +14,8 @@ export function NavLink({ href, label, className, onClick }: NavLinkProps) {
       href={href}
       onClick={onClick}
       className={cn(
-        "text-body font-semibold text-ink transition-colors hover:text-leaf",
-        className,
+        "text-body font-semibold transition-colors",
+        className ?? "text-ink hover:text-leaf",
       )}
     >
       {label}

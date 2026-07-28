@@ -46,7 +46,7 @@ export const siteContent = {
   ] satisfies readonly NavItem[],
   hero: {
     eyebrow: "Atelier Verde · Manaus, AM",
-    title: "Flora amazônica, da minha casa para a sua",
+    title: "Flora amazônica, da nossa casa para a sua",
     description:
       "Centros de mesa, vasos decorativos, hidroponia e kokedamas. Composições artesanais que trazem a floresta para dentro de casa, com delicadeza e cuidado.",
     cta: {
@@ -111,13 +111,12 @@ export const siteContent = {
   contact: {
     id: "contato",
     title: "Vamos criar juntos",
-    description:
-      "Conte sobre o ambiente, as cores e o clima que imagina. Criamos uma proposta artesanal e te respondemos pelo WhatsApp.",
+    description: "",
     whatsapp: {
       label: "WhatsApp",
       href: getWhatsAppUrl("Olá! Gostaria de encomendar uma peça de decoração artesanal."),
       number: formatWhatsAppNumber(),
     },
-    address: "Manaus, AM. Entregas na capital e região metropolitana",
+    address: "Manaus, AM\nEntregas na capital e região metropolitana",
   },
 } as const;

@@ -100,15 +100,6 @@ export type InstagramGallery = {
   unavailable: boolean;
 };
 
-function rgbToCss(rgb: string | undefined): string {
-  if (!rgb) return "var(--color-surface)";
-  const parts = rgb.split(",").map((part) => part.trim());
-  if (parts.length !== 3 || parts.some((part) => Number.isNaN(Number(part)))) {
-    return "var(--color-surface)";
-  }
-  return `rgb(${parts.join(" ")})`;
-}
-
 function isBeholdCdnUrl(url: string): boolean {
   return url.includes("behold.pictures");
 }
@@ -155,7 +146,7 @@ function mapPost(post: BeholdPost): GalleryPost | null {
     alt,
     imageUrl: images[0],
     images,
-    dominantColor: rgbToCss(post.colorPalette?.dominant),
+    dominantColor: "var(--color-surface)",
     isVideo: post.mediaType === "VIDEO" || Boolean(post.isReel),
   };
 }

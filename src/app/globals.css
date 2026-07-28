@@ -111,57 +111,27 @@ body {
   white-space: normal;
 }
 
-/* Instagram album tiles — CSS-only crossfade (no JS). Base frame stays visible; overlays cycle. */
-@keyframes ig-carousel-fade-2 {
-  0% { opacity: 0; transform: translate3d(5%, 0, 0); }
-  4% { opacity: 1; transform: translate3d(0, 0, 0); }
-  46% { opacity: 1; transform: translate3d(0, 0, 0); }
-  50% { opacity: 0; transform: translate3d(-4%, 0, 0); }
-  100% { opacity: 0; transform: translate3d(-4%, 0, 0); }
+/* Instagram album frame crossfade (client-driven). */
+@keyframes ig-frame-in {
+  0% {
+    opacity: 0;
+    transform: translate3d(4%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
-@keyframes ig-carousel-fade-3 {
-  0% { opacity: 0; transform: translate3d(5%, 0, 0); }
-  3% { opacity: 1; transform: translate3d(0, 0, 0); }
-  30% { opacity: 1; transform: translate3d(0, 0, 0); }
-  33.333% { opacity: 0; transform: translate3d(-4%, 0, 0); }
-  100% { opacity: 0; transform: translate3d(-4%, 0, 0); }
-}
-
-@keyframes ig-carousel-fade-4 {
-  0% { opacity: 0; transform: translate3d(5%, 0, 0); }
-  3% { opacity: 1; transform: translate3d(0, 0, 0); }
-  22% { opacity: 1; transform: translate3d(0, 0, 0); }
-  25% { opacity: 0; transform: translate3d(-4%, 0, 0); }
-  100% { opacity: 0; transform: translate3d(-4%, 0, 0); }
-}
-
-@keyframes ig-carousel-fade-5 {
-  0% { opacity: 0; transform: translate3d(5%, 0, 0); }
-  2% { opacity: 1; transform: translate3d(0, 0, 0); }
-  17% { opacity: 1; transform: translate3d(0, 0, 0); }
-  20% { opacity: 0; transform: translate3d(-4%, 0, 0); }
-  100% { opacity: 0; transform: translate3d(-4%, 0, 0); }
-}
-
-@utility ig-carousel-frame {
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-  animation-fill-mode: both;
-}
-
-@utility ig-carousel-2 {
-  animation-name: ig-carousel-fade-2;
-}
-
-@utility ig-carousel-3 {
-  animation-name: ig-carousel-fade-3;
-}
-
-@utility ig-carousel-4 {
-  animation-name: ig-carousel-fade-4;
-}
-
-@utility ig-carousel-5 {
-  animation-name: ig-carousel-fade-5;
+@utility marble-nav {
+  background-color: var(--color-jungle);
+  background-image:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-jungle) 55%, transparent),
+      color-mix(in srgb, var(--color-jungle) 35%, transparent)
+    ),
+    url("/images/mavife-background.png");
+  background-size: cover;
+  background-position: center;
 }

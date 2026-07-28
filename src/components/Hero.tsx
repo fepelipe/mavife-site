@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { site, siteContent } from "@/lib/content";
+import { siteContent } from "@/lib/content";
 
 export function Hero() {
   const { hero } = siteContent;
@@ -18,9 +18,6 @@ export function Hero() {
       <div className="absolute inset-0 bg-linear-to-r from-jungle/90 via-jungle/70 to-jungle/30" />
       <div className="section-x relative flex min-h-[85vh] items-center py-20">
         <div className="mx-auto flex w-full max-w-content flex-col gap-6 md:max-w-xl">
-          <p className="text-sm font-semibold tracking-[0.2em] text-clay uppercase">
-            {site.tagline} · {hero.eyebrow.split("·")[1]?.trim() ?? hero.eyebrow}
-          </p>
           <h1 className="font-heading text-[clamp(2.25rem,5vw,3.75rem)] leading-[1.1] font-semibold text-white">
             {hero.title}
           </h1>

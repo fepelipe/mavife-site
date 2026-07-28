@@ -9,7 +9,6 @@ export function Footer() {
         <p>
           © {year} {site.name} {site.tagline}. Manaus, AM.
         </p>
-        <p>Plantas do nosso lar para o seu.</p>
       </div>
     </footer>
   );
