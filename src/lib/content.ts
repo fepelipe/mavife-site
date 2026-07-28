@@ -27,9 +27,9 @@ export const site = {
     "Decoração artesanal com flora amazônica, cestaria, suculentas e arranjos feitos à mão em Manaus. Peças únicas para transformar sua casa.",
 } as const;
 
-/** Instagram feed — posts fetched at runtime from @marlyfonseca_ */
+/** Instagram feed — Behold JSON widget (free plan: last 6 posts, server-cached). */
 export const instagramFeed = {
-  username: "marlyfonseca_",
+  username: "mavifeatelierverde",
   title: "No Instagram",
   description: "Acompanhe as últimas publicações da Marly — arranjos, decoração e bastidores do ateliê.",
 } as const;
