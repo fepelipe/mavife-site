@@ -1,12 +1,16 @@
 import { Section } from "@/components/Section";
 import { siteContent } from "@/lib/content";
 
+const TITLE_ID = "atelie-heading";
+
 export function Services() {
   const { services } = siteContent;
 
   return (
-    <Section id={services.id} className="bg-jungle text-white">
-      <h2 className="text-h2 mb-12 text-clay md:mb-16">{services.title}</h2>
+    <Section id={services.id} labelledBy={TITLE_ID} className="bg-jungle text-white">
+      <h2 id={TITLE_ID} className="text-h2 mb-12 text-clay md:mb-16">
+        {services.title}
+      </h2>
       <ul className="grid gap-6 md:grid-cols-3">
         {services.items.map((item) => (
           <li

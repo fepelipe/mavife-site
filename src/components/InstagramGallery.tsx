@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ExternalLinkIcon } from "@/components/icons/ExternalLinkIcon";
+import { instagramPostLabel } from "@/lib/a11y";
 import type { GalleryPost } from "@/lib/behold";
 import { cn } from "@/lib/cn";
 
@@ -22,6 +23,11 @@ const FADE_MS = 1600;
 const AFTER_LOAD_MS = 2200;
 /** Pause after the second tile finishes before picking the next pair. */
 const BETWEEN_PAIRS_MS = 1800;
+
+function prefersReducedMotion(): boolean {
+  if (typeof window === "undefined") return false;
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
 
 function shuffleDelays(count: number, maxMs: number): number[] {
   return Array.from({ length: count }, () => Math.floor(Math.random() * maxMs));
@@ -48,6 +54,7 @@ function PostTile({
   frameIndex,
   isFading,
   visible,
+  reduceMotion,
 }: {
   post: GalleryPost;
   className: string;
@@ -55,35 +62,40 @@ function PostTile({
   frameIndex: number;
   isFading: boolean;
   visible: boolean;
+  reduceMotion: boolean;
 }) {
   const frames = post.images.length > 0 ? post.images : [post.imageUrl];
   const current = frames[frameIndex % frames.length];
   const next = frames[(frameIndex + 1) % frames.length];
-  const hasCarousel = frames.length > 1;
+  const hasCarousel = frames.length > 1 && !reduceMotion;
 
   return (
     <li
       className={cn(
-        "min-w-0 opacity-0 transition-opacity duration-700 ease-out",
-        visible && "opacity-100",
+        "min-w-0",
+        reduceMotion ? "opacity-100" : "opacity-0 transition-opacity duration-700 ease-out",
+        !reduceMotion && visible && "opacity-100",
         className,
       )}
-      style={{ transitionDelay: visible ? `${entranceDelay}ms` : "0ms" }}
+      style={reduceMotion ? undefined : { transitionDelay: visible ? `${entranceDelay}ms` : "0ms" }}
     >
       <Link
         href={post.permalink}
         target="_blank"
         rel="noopener noreferrer"
         className="group relative block h-full overflow-hidden focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-        aria-label={post.caption ? `Abrir no Instagram: ${post.caption}` : "Abrir publicação no Instagram"}
+        aria-label={instagramPostLabel({ caption: post.caption, isVideo: post.isVideo })}
       >
-        {/* Base stays fully opaque so the tile never flashes through to the page. */}
         <Image
           src={current}
-          alt={post.alt}
+          alt=""
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
-          className="z-0 object-cover transition-transform duration-700 ease-out group-hover:scale-105 group-focus-visible:scale-105"
+          className={cn(
+            "z-0 object-cover",
+            !reduceMotion &&
+              "transition-transform duration-700 ease-out group-hover:scale-105 group-focus-visible:scale-105",
+          )}
         />
         {hasCarousel ? (
           <Image
@@ -92,7 +104,8 @@ function PostTile({
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
             className={cn(
-              "z-[1] object-cover transition-[opacity,transform] ease-out group-hover:scale-105 group-focus-visible:scale-105",
+              "z-[1] object-cover transition-opacity ease-out",
+              !reduceMotion && "group-hover:scale-105 group-focus-visible:scale-105",
               isFading ? "opacity-100 duration-[1600ms]" : "opacity-0 duration-0",
             )}
           />
@@ -105,6 +118,7 @@ function PostTile({
             "opacity-0 transition-opacity duration-300 ease-out",
             "group-hover:opacity-100 group-focus-visible:opacity-100",
           )}
+          aria-hidden="true"
         >
           {post.caption ? (
             <p className="line-clamp-4 max-w-[90%] pr-10 text-sm leading-relaxed text-white/95 sm:text-[0.95rem]">
@@ -113,7 +127,10 @@ function PostTile({
           ) : null}
         </div>
 
-        <div className="pointer-events-none absolute right-3 bottom-3 z-30 flex items-center sm:right-4 sm:bottom-4">
+        <div
+          className="pointer-events-none absolute right-3 bottom-3 z-30 flex items-center sm:right-4 sm:bottom-4"
+          aria-hidden="true"
+        >
           <span
             className={cn(
               "absolute right-full mr-1.5 text-xs font-semibold tracking-[0.14em] text-clay uppercase whitespace-nowrap",
@@ -134,19 +151,26 @@ function PostTile({
 }
 
 export function InstagramGallery({ posts }: { posts: GalleryPost[] }) {
+  const [reduceMotion, setReduceMotion] = useState(false);
   const [entranceDelays, setEntranceDelays] = useState(() => posts.map(() => 0));
   const [visible, setVisible] = useState(false);
   const [frameIndex, setFrameIndex] = useState(() => posts.map(() => 0));
   const [fading, setFading] = useState(() => posts.map(() => false));
 
   useEffect(() => {
+    const reduced = prefersReducedMotion();
+    setReduceMotion(reduced);
+    if (reduced) {
+      setVisible(true);
+      return;
+    }
     setEntranceDelays(shuffleDelays(posts.length, 900));
     const id = requestAnimationFrame(() => setVisible(true));
     return () => cancelAnimationFrame(id);
   }, [posts.length]);
 
   useEffect(() => {
-    if (posts.length < 2 || !visible) return;
+    if (reduceMotion || posts.length < 2 || !visible) return;
 
     let cancelled = false;
     const timers: ReturnType<typeof setTimeout>[] = [];
@@ -170,8 +194,6 @@ export function InstagramGallery({ posts }: { posts: GalleryPost[] }) {
 
       const done = setTimeout(() => {
         if (cancelled) return;
-        // Commit the new frame first while the overlay is still fully opaque,
-        // then clear fading so the overlay resets without exposing the page.
         setFrameIndex((prev) => {
           const next = [...prev];
           const len = posts[index].images.length;
@@ -218,21 +240,29 @@ export function InstagramGallery({ posts }: { posts: GalleryPost[] }) {
       cancelled = true;
       timers.forEach(clearTimeout);
     };
-  }, [posts, entranceDelays, visible]);
+  }, [posts, entranceDelays, visible, reduceMotion]);
 
   return (
-    <ul className="grid w-full auto-rows-fr grid-cols-2 gap-1.5 md:grid-cols-3 md:gap-2">
-      {posts.map((post, index) => (
-        <PostTile
-          key={post.id}
-          post={post}
-          className={TILE_LAYOUT[index] ?? "col-span-1 min-h-[12rem]"}
-          entranceDelay={entranceDelays[index] ?? 0}
-          frameIndex={frameIndex[index] ?? 0}
-          isFading={fading[index] ?? false}
-          visible={visible}
-        />
-      ))}
-    </ul>
+    <>
+      <p className="sr-only">
+        {reduceMotion
+          ? "Galeria com as últimas publicações do Instagram. Cada item abre a publicação correspondente em uma nova aba."
+          : "Galeria com as últimas publicações do Instagram. As imagens de álbuns podem alternar automaticamente. Cada item abre a publicação correspondente em uma nova aba."}
+      </p>
+      <ul className="grid w-full auto-rows-fr grid-cols-2 gap-0 md:grid-cols-3" aria-label="Publicações recentes no Instagram">
+        {posts.map((post, index) => (
+          <PostTile
+            key={post.id}
+            post={post}
+            className={TILE_LAYOUT[index] ?? "col-span-1 min-h-[12rem]"}
+            entranceDelay={entranceDelays[index] ?? 0}
+            frameIndex={frameIndex[index] ?? 0}
+            isFading={fading[index] ?? false}
+            visible={visible}
+            reduceMotion={reduceMotion}
+          />
+        ))}
+      </ul>
+    </>
   );
 }

@@ -17,7 +17,11 @@ export function Logo({ className, onDark = false }: LogoProps) {
   return (
     <Link
       href="/"
-      className={cn("group flex items-center gap-2.5", className)}
+      className={cn(
+        "group flex items-center gap-2.5 rounded-soft",
+        onDark ? "focus-ring-light" : "focus-ring",
+        className,
+      )}
       aria-label={site.logoLabel}
     >
       <Image
@@ -26,7 +30,7 @@ export function Logo({ className, onDark = false }: LogoProps) {
         width={plant.width}
         height={plant.height}
         priority
-        className={cn("h-10 w-auto transition-transform duration-200 group-hover:scale-105", blend)}
+        className={cn("h-10 w-auto transition-transform duration-200 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100", blend)}
       />
       <span className="flex flex-col leading-none">
         <Image

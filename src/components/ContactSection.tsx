@@ -1,12 +1,20 @@
 import Link from "next/link";
+import { externalLinkLabel } from "@/lib/a11y";
 import { siteContent } from "@/lib/content";
 import { images } from "@/lib/images";
+
+const TITLE_ID = "contato-heading";
 
 export function ContactSection() {
   const { contact } = siteContent;
 
   return (
-    <section id={contact.id} className="section-x section-y bg-surface">
+    <section
+      id={contact.id}
+      aria-labelledby={TITLE_ID}
+      tabIndex={-1}
+      className="section-x section-y bg-surface"
+    >
       <div
         className="woven-border mx-auto max-w-2xl overflow-hidden bg-white/95 p-10 text-center md:p-14"
         style={{
@@ -16,11 +24,14 @@ export function ContactSection() {
         }}
       >
         <div className="rounded-soft bg-white/90 p-8 backdrop-blur-sm md:p-10">
-          <h2 className="text-h2 mb-8 text-ink">{contact.title}</h2>
+          <h2 id={TITLE_ID} className="text-h2 mb-8 text-ink">
+            {contact.title}
+          </h2>
           <Link
             href={contact.whatsapp.href}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={externalLinkLabel("Falar no WhatsApp")}
             className="btn-primary"
           >
             {contact.whatsapp.label}

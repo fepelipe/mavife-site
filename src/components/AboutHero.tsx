@@ -5,7 +5,7 @@ export function AboutHero() {
   const { about } = siteContent;
 
   return (
-    <section className="section-x section-y bg-surface">
+    <section className="section-x section-y bg-surface" aria-labelledby="about-heading">
       <div className="mx-auto grid max-w-content items-center gap-12 md:grid-cols-2 md:gap-16">
         <div className="woven-border relative aspect-[4/5] overflow-hidden">
           <Image
@@ -18,10 +18,12 @@ export function AboutHero() {
           />
         </div>
         <div className="flex flex-col gap-6">
-          <p className="text-sm font-semibold tracking-[0.2em] text-accent uppercase">
+          <p className="text-sm font-semibold tracking-[0.2em] text-accent-deep uppercase">
             {site.tagline} · Manaus, AM
           </p>
-          <h1 className="text-h2 text-jungle">{about.title}</h1>
+          <h1 id="about-heading" className="text-h2 text-jungle">
+            {about.title}
+          </h1>
           <p className="text-body text-muted">{about.bio}</p>
         </div>
       </div>

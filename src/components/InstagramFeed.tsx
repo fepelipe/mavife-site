@@ -2,23 +2,33 @@ import Image from "next/image";
 import Link from "next/link";
 import { ExternalLinkIcon } from "@/components/icons/ExternalLinkIcon";
 import { InstagramGallery } from "@/components/InstagramGallery";
+import { externalLinkLabel } from "@/lib/a11y";
 import { fetchBeholdGallery } from "@/lib/behold";
 import { instagramFeed } from "@/lib/content";
+
+const TITLE_ID = "instagram-heading";
 
 export async function InstagramFeed() {
   const gallery = await fetchBeholdGallery();
   const { title, description } = instagramFeed;
   const username = gallery.username || instagramFeed.username;
+  const profileLabel = externalLinkLabel(`Ver perfil de @${username} no Instagram`);
 
   return (
-    <section id="instagram" className="section-y bg-surface">
+    <section
+      id="instagram"
+      aria-labelledby={TITLE_ID}
+      tabIndex={-1}
+      className="section-y bg-surface"
+    >
       <div className="section-x mx-auto mb-10 flex max-w-content flex-col gap-4 md:mb-14 md:flex-row md:items-end md:justify-between">
         <div className="flex flex-col gap-3">
           <Link
             href={gallery.profileUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group/profile inline-flex w-fit items-center gap-3 rounded-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            aria-label={profileLabel}
+            className="group/profile inline-flex w-fit items-center gap-3 rounded-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf"
           >
             {gallery.profilePictureUrl ? (
               <Image
@@ -29,21 +39,24 @@ export async function InstagramFeed() {
                 className="size-10 rounded-full object-cover ring-1 ring-clay/50 transition-opacity group-hover/profile:opacity-90"
               />
             ) : null}
-            <span className="text-sm font-semibold tracking-widest text-accent uppercase transition-colors group-hover/profile:text-accent-deep">
+            <span className="text-sm font-semibold tracking-widest text-accent-deep uppercase transition-colors group-hover/profile:text-leaf">
               @{username}
             </span>
           </Link>
-          <h2 className="text-h2 text-ink">{title}</h2>
+          <h2 id={TITLE_ID} className="text-h2 text-ink">
+            {title}
+          </h2>
           <p className="max-w-prose text-body text-muted">{description}</p>
         </div>
         <Link
           href={gallery.profileUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-sm font-semibold text-leaf underline-offset-4 hover:underline"
+          aria-label={profileLabel}
+          className="inline-flex items-center gap-1.5 rounded-soft text-sm font-semibold text-leaf underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf"
         >
           Ver perfil no Instagram
-          <ExternalLinkIcon className="size-3.5" />
+          <ExternalLinkIcon className="size-3.5" aria-hidden="true" />
         </Link>
       </div>
 
@@ -51,7 +64,7 @@ export async function InstagramFeed() {
         <InstagramGallery posts={gallery.posts} />
       ) : (
         <div className="section-x mx-auto max-w-content">
-          <div className="rounded-soft border border-clay/30 bg-white p-10 text-center">
+          <div className="rounded-soft border border-clay/30 bg-white p-10 text-center" role="status">
             <p className="text-body text-muted">
               {gallery.unavailable
                 ? "As publicações do Instagram estão temporariamente indisponíveis. Volte em breve ou acompanhe pelo perfil."
@@ -61,10 +74,11 @@ export async function InstagramFeed() {
               href={gallery.profileUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-leaf underline-offset-4 hover:underline"
+              aria-label={externalLinkLabel(`Abrir @${username} no Instagram`)}
+              className="mt-4 inline-flex items-center gap-1.5 rounded-soft text-sm font-semibold text-leaf underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf"
             >
               Abrir @{username} no Instagram
-              <ExternalLinkIcon className="size-3.5" />
+              <ExternalLinkIcon className="size-3.5" aria-hidden="true" />
             </Link>
           </div>
         </div>
