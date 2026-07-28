@@ -3,7 +3,7 @@ export const images = {
   brand: {
     logo: {
       src: "/images/mavife-logo.png",
-      alt: "Mavife — Atelier Verde",
+      alt: "Mavife Atelier Verde",
       width: 1024,
       height: 1024,
     },

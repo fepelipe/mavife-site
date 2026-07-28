@@ -19,10 +19,10 @@ export function getWhatsAppUrl(message?: string) {
 }
 
 export const site = {
-  name: "Mavife",
+  name: "Mavife Atelier Verde",
   tagline: "Atelier Verde",
-  logoLabel: "Mavife — Atelier Verde",
-  title: "Mavife — Atelier Verde",
+  logoLabel: "Mavife Atelier Verde",
+  title: "Mavife Atelier Verde",
   description:
     "Decoração artesanal com flora amazônica, cestaria, suculentas e arranjos feitos à mão em Manaus. Peças únicas para transformar sua casa.",
 } as const;
@@ -45,7 +45,7 @@ export const siteContent = {
     { label: "Contato", href: "/#contato" },
   ] satisfies readonly NavItem[],
   hero: {
-    eyebrow: "Atelier Verde · Manaus, AM",
+    eyebrow: "Atelier Verde - Manaus, AM",
     title: "Flora amazônica, da nossa casa para a sua",
     description:
       "Centros de mesa, vasos decorativos, hidroponia e kokedamas. Composições artesanais que trazem a floresta para dentro de casa, com delicadeza e cuidado.",
@@ -105,7 +105,7 @@ export const siteContent = {
   about: {
     name: site.name,
     title: "Raízes amazonenses, olhar artesanal",
-    bio: "A Mavife nasceu em Manaus do encontro entre a riqueza da flora amazônica e o gesto manual da jardinagem. Trabalhamos com plantas, formas orgânicas e técnicas precisas para criar decoração que respira. Peças pensadas para morar com você e fazer parte da sua história.",
+    bio: "A Mavife Atelier Verde nasceu em Manaus do encontro entre a riqueza da flora amazônica e o gesto manual da jardinagem. Trabalhamos com plantas, formas orgânicas e técnicas precisas para criar decoração que respira. Peças pensadas para morar com você e fazer parte da sua história.",
     image: images.aboutFlorist,
   },
   contact: {

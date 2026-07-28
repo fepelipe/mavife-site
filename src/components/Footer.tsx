@@ -7,7 +7,7 @@ export function Footer() {
     <footer className="section-x border-t border-clay/30 bg-jungle py-10 text-white/70">
       <div className="mx-auto flex max-w-content flex-col items-center justify-between gap-4 text-sm sm:flex-row">
         <p>
-          © {year} {site.name} {site.tagline}. Manaus, AM.
+          © {year} {site.name}. Manaus, AM.
         </p>
       </div>
     </footer>

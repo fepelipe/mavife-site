@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { site, siteContent } from "@/lib/content";
+import { siteContent } from "@/lib/content";
 
 export function AboutHero() {
   const { about } = siteContent;
@@ -18,9 +18,6 @@ export function AboutHero() {
           />
         </div>
         <div className="flex flex-col gap-6">
-          <p className="text-sm font-semibold tracking-[0.2em] text-accent-deep uppercase">
-            {site.tagline} · Manaus, AM
-          </p>
           <h1 id="about-heading" className="text-h2 text-jungle">
             {about.title}
           </h1>

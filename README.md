@@ -1,6 +1,6 @@
-# Mavife
+# Mavife Atelier Verde
 
-Site da floricultura Mavife — arranjos artesanais, buquês e decoração floral. Encomendas via WhatsApp.
+Site da Mavife Atelier Verde - arranjos artesanais, buquês e decoração floral. Encomendas via WhatsApp.
 
 ## Stack
 
