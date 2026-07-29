@@ -9,17 +9,16 @@ import type { GalleryPost } from "@/lib/behold";
 import { cn } from "@/lib/cn";
 
 /**
- * Desktop (md+): 6-col grid in three blocks at 1:1:4 —
- * one tall post, one tall post, then four posts in a 2×2.
- * Mobile: keep a compact 2-col mosaic.
+ * Desktop (md+): three equal blocks — one post | one post | 2×2 of four posts.
+ * (1:1:4 = posts per block.) Mobile keeps a compact 2-col mosaic.
  */
 const TILE_LAYOUT = [
-  "col-span-2 row-span-2 min-h-[18rem] sm:min-h-[22rem] md:col-span-1 md:min-h-[28rem] lg:min-h-[32rem]",
-  "col-span-1 min-h-[10rem] sm:min-h-[13rem] md:col-span-1 md:row-span-2 md:min-h-[28rem] lg:min-h-[32rem]",
-  "col-span-1 min-h-[10rem] sm:min-h-[13rem] md:col-span-2 md:row-span-1 md:min-h-[14rem] lg:min-h-[16rem]",
-  "col-span-1 min-h-[10rem] sm:min-h-[12rem] md:col-span-2 md:min-h-[14rem] lg:min-h-[16rem]",
-  "col-span-1 min-h-[10rem] sm:min-h-[12rem] md:col-span-2 md:min-h-[14rem] lg:min-h-[16rem]",
-  "col-span-2 min-h-[11rem] sm:col-span-1 sm:min-h-[12rem] md:col-span-2 md:min-h-[14rem] lg:min-h-[16rem]",
+  "col-span-2 row-span-2 min-h-[18rem] sm:min-h-[22rem] md:col-span-2 md:min-h-[28rem] lg:min-h-[32rem]",
+  "col-span-1 min-h-[10rem] sm:min-h-[13rem] md:col-span-2 md:row-span-2 md:min-h-[28rem] lg:min-h-[32rem]",
+  "col-span-1 min-h-[10rem] sm:min-h-[13rem] md:col-span-1 md:row-span-1 md:min-h-[14rem] lg:min-h-[16rem]",
+  "col-span-1 min-h-[10rem] sm:min-h-[12rem] md:col-span-1 md:min-h-[14rem] lg:min-h-[16rem]",
+  "col-span-1 min-h-[10rem] sm:min-h-[12rem] md:col-span-1 md:min-h-[14rem] lg:min-h-[16rem]",
+  "col-span-2 min-h-[11rem] sm:col-span-1 sm:min-h-[12rem] md:col-span-1 md:min-h-[14rem] lg:min-h-[16rem]",
 ] as const;
 
 /** Crossfade length for album frames (ms). */
@@ -271,10 +270,10 @@ export function InstagramGallery({ posts }: { posts: GalleryPost[] }) {
             priority={index < 2}
             sizes={
               index === 0
-                ? "(max-width: 767px) 100vw, 17vw"
+                ? "(max-width: 767px) 100vw, 34vw"
                 : index === 1
-                  ? "(max-width: 767px) 50vw, 17vw"
-                  : "(max-width: 767px) 50vw, 34vw"
+                  ? "(max-width: 767px) 50vw, 34vw"
+                  : "(max-width: 767px) 50vw, 17vw"
             }
           />
         ))}
