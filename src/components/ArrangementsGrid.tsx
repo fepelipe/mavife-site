@@ -15,7 +15,9 @@ export function ArrangementsGrid() {
         <h2 id={TITLE_ID} className="text-h2 text-ink">
           {arrangements.title}
         </h2>
-        <p className="max-w-prose text-body text-muted">{arrangements.description}</p>
+        <p className="max-w-prose whitespace-pre-line text-body text-muted">
+          {arrangements.description}
+        </p>
       </div>
       <ul className="grid gap-10 lg:grid-cols-3">
         {arrangements.items.map((item) => (
@@ -31,7 +33,7 @@ export function ArrangementsGrid() {
             </div>
             <div className="flex flex-col gap-2 px-1">
               <h3 className="text-h3 text-jungle">{item.title}</h3>
-              <p className="text-body text-muted">{item.description}</p>
+              <p className="whitespace-pre-line text-body text-muted">{item.description}</p>
               <Link
                 href={getWhatsAppUrl(`Olá! Tenho interesse na peça "${item.title}".`)}
                 target="_blank"

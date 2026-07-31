@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { ExternalLinkIcon } from "@/components/icons/ExternalLinkIcon";
 import { instagramPostLabel } from "@/lib/a11y";
 import type { GalleryPost } from "@/lib/behold";
@@ -27,10 +27,21 @@ const FADE_MS = 1600;
 const AFTER_LOAD_MS = 2200;
 /** Pause after the second tile finishes before picking the next pair. */
 const BETWEEN_PAIRS_MS = 1800;
+/** Reveal timing for the “Ir ao post” copy (ms). */
+const CTA_REVEAL_MS = 380;
 
-function prefersReducedMotion(): boolean {
-  if (typeof window === "undefined") return false;
+function subscribeReducedMotion(onChange: () => void) {
+  const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+  media.addEventListener("change", onChange);
+  return () => media.removeEventListener("change", onChange);
+}
+
+function getReducedMotionSnapshot() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function getReducedMotionServerSnapshot() {
+  return false;
 }
 
 function pickTwoDistinct(count: number, prefer: number[]): [number, number] | null {
@@ -55,6 +66,8 @@ function PostTile({
   reduceMotion,
   priority,
   sizes,
+  dense,
+  onHoverChange,
 }: {
   post: GalleryPost;
   className: string;
@@ -63,6 +76,9 @@ function PostTile({
   reduceMotion: boolean;
   priority?: boolean;
   sizes: string;
+  /** Compact 2×2 tiles: caption above the CTA strip. */
+  dense?: boolean;
+  onHoverChange?: (hovered: boolean) => void;
 }) {
   const frames = post.images.length > 0 ? post.images : [post.imageUrl];
   const current = frames[frameIndex % frames.length];
@@ -77,6 +93,10 @@ function PostTile({
         rel="noopener noreferrer"
         className="group absolute inset-0 block overflow-hidden focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent"
         aria-label={instagramPostLabel({ caption: post.caption, isVideo: post.isVideo })}
+        onMouseEnter={() => onHoverChange?.(true)}
+        onMouseLeave={() => onHoverChange?.(false)}
+        onFocus={() => onHoverChange?.(true)}
+        onBlur={() => onHoverChange?.(false)}
       >
         <Image
           src={current}
@@ -109,36 +129,70 @@ function PostTile({
         <div
           className={cn(
             "pointer-events-none absolute inset-0 z-20 flex flex-col justify-end",
-            "bg-gradient-to-t from-ink/80 via-ink/25 to-transparent p-4 sm:p-5",
-            "opacity-0 transition-opacity duration-300 ease-out",
-            "group-hover:opacity-100 group-focus-visible:opacity-100",
+            dense ? "p-3 sm:p-3.5" : "p-4 sm:p-5",
           )}
           aria-hidden="true"
         >
-          {post.caption ? (
-            <p className="line-clamp-4 max-w-[90%] pr-10 text-sm leading-relaxed text-white/95 sm:text-[0.95rem]">
-              {post.caption}
-            </p>
-          ) : null}
-        </div>
-
-        <div
-          className="pointer-events-none absolute right-3 bottom-3 z-30 flex items-center sm:right-4 sm:bottom-4"
-          aria-hidden="true"
-        >
-          <span
+          <div
             className={cn(
-              "absolute right-full mr-1.5 text-xs font-semibold tracking-[0.14em] text-clay uppercase whitespace-nowrap",
-              "translate-x-1 opacity-0 transition-[opacity,transform] duration-300 ease-out",
-              "group-hover:translate-x-0 group-hover:opacity-100",
-              "group-focus-visible:translate-x-0 group-focus-visible:opacity-100",
+              "absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/25 to-transparent",
+              "opacity-0 transition-opacity duration-300 ease-out",
+              "group-hover:opacity-100 group-focus-visible:opacity-100",
+            )}
+          />
+
+          <div
+            className={cn(
+              "relative z-10 flex min-w-0",
+              // 2×2 tiles always stack; large tiles go row on desktop.
+              dense
+                ? "flex-col items-stretch gap-2"
+                : "flex-col items-stretch gap-2 md:flex-row md:items-end md:gap-3",
             )}
           >
-            Ir ao post
-          </span>
-          <span className="flex size-8 items-center justify-center rounded-soft bg-ink/45 text-clay shadow-sm backdrop-blur-sm transition-colors duration-300 group-hover:bg-ink/65 group-focus-visible:bg-ink/65">
-            <ExternalLinkIcon className="size-3.5" />
-          </span>
+            {post.caption ? (
+              <p
+                className={cn(
+                  "min-w-0 w-full text-sm leading-relaxed text-white/95 sm:text-[0.95rem]",
+                  "opacity-0 transition-opacity duration-300 ease-out",
+                  "group-hover:opacity-100 group-focus-visible:opacity-100",
+                  dense ? "line-clamp-3" : "line-clamp-4 md:flex-1",
+                )}
+              >
+                {post.caption}
+              </p>
+            ) : dense ? null : (
+              <span className="hidden min-w-0 flex-1 md:block" />
+            )}
+
+            <div
+              className={cn(
+                "flex shrink-0 items-center gap-1.5 self-end",
+                !dense && "md:self-auto",
+              )}
+            >
+              {/*
+                Space is reserved in-flow; transform only reveals the copy so the
+                icon never shifts when “Ir ao post” appears.
+              */}
+              <div className="overflow-hidden">
+                <p
+                  className={cn(
+                    "text-xs font-semibold tracking-[0.14em] text-clay uppercase whitespace-nowrap",
+                    "translate-x-full opacity-0 transition-[opacity,transform] ease-out",
+                    "group-hover:translate-x-0 group-hover:opacity-100",
+                    "group-focus-visible:translate-x-0 group-focus-visible:opacity-100",
+                  )}
+                  style={{ transitionDuration: `${CTA_REVEAL_MS}ms` }}
+                >
+                  Ir ao post
+                </p>
+              </div>
+              <span className="flex size-8 items-center justify-center rounded-soft bg-ink/45 text-clay shadow-sm backdrop-blur-sm transition-colors duration-300 group-hover:bg-ink/65 group-focus-visible:bg-ink/65">
+                <ExternalLinkIcon className="size-3.5" />
+              </span>
+            </div>
+          </div>
         </div>
       </Link>
     </li>
@@ -146,11 +200,22 @@ function PostTile({
 }
 
 export function InstagramGallery({ posts }: { posts: GalleryPost[] }) {
-  const [reduceMotion, setReduceMotion] = useState(false);
+  const reduceMotion = useSyncExternalStore(
+    subscribeReducedMotion,
+    getReducedMotionSnapshot,
+    getReducedMotionServerSnapshot,
+  );
   const [inView, setInView] = useState(false);
   const [frameIndex, setFrameIndex] = useState(() => posts.map(() => 0));
   const [fading, setFading] = useState(() => posts.map(() => false));
   const rootRef = useRef<HTMLDivElement>(null);
+  const isPausedRef = useRef(false);
+  const hoverCountRef = useRef(0);
+
+  const handleHoverChange = (hovered: boolean) => {
+    hoverCountRef.current = Math.max(0, hoverCountRef.current + (hovered ? 1 : -1));
+    isPausedRef.current = hoverCountRef.current > 0;
+  };
 
   useEffect(() => {
     const node = rootRef.current;
@@ -171,20 +236,40 @@ export function InstagramGallery({ posts }: { posts: GalleryPost[] }) {
   }, []);
 
   useEffect(() => {
-    if (!inView) return;
-    setReduceMotion(prefersReducedMotion());
-  }, [inView]);
-
-  useEffect(() => {
     if (!inView || reduceMotion || posts.length < 2) return;
 
     let cancelled = false;
     const timers: ReturnType<typeof setTimeout>[] = [];
 
+    /** Resolves after `ms`, freezing the countdown while a tile is hovered. */
     const wait = (ms: number) =>
       new Promise<void>((resolve) => {
-        const t = setTimeout(resolve, ms);
-        timers.push(t);
+        let remaining = ms;
+
+        const tick = () => {
+          if (cancelled) {
+            resolve();
+            return;
+          }
+
+          if (isPausedRef.current) {
+            const t = setTimeout(tick, 50);
+            timers.push(t);
+            return;
+          }
+
+          if (remaining <= 0) {
+            resolve();
+            return;
+          }
+
+          const slice = Math.min(50, remaining);
+          remaining -= slice;
+          const t = setTimeout(tick, slice);
+          timers.push(t);
+        };
+
+        tick();
       });
 
     const multiFrame = posts
@@ -268,6 +353,8 @@ export function InstagramGallery({ posts }: { posts: GalleryPost[] }) {
             isFading={fading[index] ?? false}
             reduceMotion={reduceMotion}
             priority={index < 2}
+            dense={index >= 2}
+            onHoverChange={handleHoverChange}
             sizes={
               index === 0
                 ? "(max-width: 767px) 100vw, 34vw"

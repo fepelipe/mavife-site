@@ -35,7 +35,7 @@ export const instagramFeed = {
   username: INSTAGRAM_USERNAME,
   title: "No Instagram",
   description:
-    "Acompanhe as últimas publicações do atelier. Arranjos, bastidores e dicas para deixar a sua rotina mais verde.",
+    "Acompanhe as últimas publicações do atelier.\nArranjos, bastidores e dicas para deixar a sua rotina mais verde.",
 } as const;
 
 export const faqs = [
@@ -84,26 +84,26 @@ export const siteContent = {
   },
   arrangements: {
     id: "pecas",
-    title: "Peças em destaque",
+    title: "O que oferecemos",
     description:
-      "Cada produto é único, idealizado, montado e finalizado no atelier. Peça o seu pelo WhatsApp.",
+      "Cada peça é idealizada, montada e finalizada no atelier, fazendo com que cada produto seja único. Verifique a disponibilidade ou encomende pelo WhatsApp.",
     items: [
       {
         title: "Centros de mesa",
         description:
-          "Decorados com plantas de alto valor decorativo e baixa manutenção. Artesanal e vivo.",
+          "Decorados com plantas de alto valor decorativo e baixa manutenção.\nArtesanal e vivo.",
         image: images.arrangementCenterpiece,
       },
       {
         title: "Hidroponia",
         description:
-          "Plantas em água, fácil de manter, ideal para ambientes internos ou externos. Delicado e duradouro.",
+          "Plantas em água, fácil de manter, ideal para ambientes internos ou externos.\nDelicado e duradouro.",
         image: images.arrangementHydroponic,
       },
       {
         title: "Vasos e vasinhos",
         description:
-          "Variedade de formas e tamanhos, desde a mesa de cabeceira até a varanda. Natural e essencial.",
+          "Variedade de formas e tamanhos, desde a mesa de cabeceira até a varanda.\nNatural e essencial.",
         image: images.arrangementPots,
       },
     ] satisfies readonly ArrangementItem[],

@@ -14,6 +14,11 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "*.behold.pictures",
       },
+      // Behold may return Instagram CDN URLs for the profile picture.
+      {
+        protocol: "https",
+        hostname: "**.cdninstagram.com",
+      },
     ],
   },
 };

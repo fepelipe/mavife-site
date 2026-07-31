@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ExternalLinkIcon } from "@/components/icons/ExternalLinkIcon";
 import { InstagramGallery } from "@/components/InstagramGallery";
+import { InstagramProfilePicture } from "@/components/InstagramProfilePicture";
 import { externalLinkLabel } from "@/lib/a11y";
 import { fetchBeholdGallery } from "@/lib/behold";
 import { instagramFeed } from "@/lib/content";
@@ -32,15 +32,7 @@ export async function InstagramFeed() {
             aria-label={profileLabel}
             className="group/profile inline-flex w-fit items-center gap-3 rounded-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf"
           >
-            {gallery.profilePictureUrl ? (
-              <Image
-                src={gallery.profilePictureUrl}
-                alt=""
-                width={40}
-                height={40}
-                className="size-10 rounded-full object-cover ring-1 ring-clay/50 transition-opacity group-hover/profile:opacity-90"
-              />
-            ) : null}
+            <InstagramProfilePicture src={gallery.profilePictureUrl} />
             <span className="text-sm font-semibold tracking-widest text-accent-deep uppercase transition-colors group-hover/profile:text-leaf">
               @{username}
             </span>
@@ -48,7 +40,7 @@ export async function InstagramFeed() {
           <h2 id={TITLE_ID} className="text-h2 text-ink">
             {title}
           </h2>
-          <p className="max-w-prose text-body text-muted">{description}</p>
+          <p className="max-w-prose whitespace-pre-line text-body text-muted">{description}</p>
         </div>
         <Link
           href={gallery.profileUrl}
