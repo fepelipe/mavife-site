@@ -6,8 +6,8 @@
 export const BEHOLD_FEED_URL =
   process.env.BEHOLD_FEED_URL ?? "https://feeds.behold.so/skGWp890ne6rXfSgpKZo";
 
-/** Free plan refreshes once daily; long ISR keeps Behold requests well under view limits. */
-const REVALIDATE_SECONDS = 60 * 60 * 12;
+/** Free plan refreshes once daily; 24h ISR matches that cadence and keeps views low. */
+const REVALIDATE_SECONDS = 60 * 60 * 24;
 
 /** Hard cap matching Behold free plan. */
 export const BEHOLD_POST_LIMIT = 6;
