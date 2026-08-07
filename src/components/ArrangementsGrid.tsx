@@ -1,81 +1,108 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Section } from "@/components/Section";
 import { externalLinkLabel } from "@/lib/a11y";
 import { getWhatsAppUrl, siteContent } from "@/lib/content";
 import type { ImageAsset } from "@/lib/types";
 
 const TITLE_ID = "pecas-heading";
 
-/**
- * Image height is locked to the copy stack:
- * py-3 (24) + title ~1.625rem/1.2 (~31) + gaps (16) +
- * description ~3 body lines (~84) + Encomendar (~24) ≈ 180px → 11.5rem.
- * Title bumped to 1.625rem; "Centros de mesa" still fits one line in the copy column.
- */
-const IMAGE_HEIGHT_CLASS = "h-[11.5rem]";
-
 function enquireMessage(title: string) {
   return `Olá! Tenho interesse em ${title.toLowerCase()}. O que tem disponível?`;
+}
+
+function cardLabel(title: string, description: string) {
+  const short = description.replace(/\s+/g, " ").trim();
+  return externalLinkLabel(`Encomendar ${title} pelo WhatsApp. ${short}`);
 }
 
 export function ArrangementsGrid() {
   const { arrangements } = siteContent;
 
   return (
-    <Section id={arrangements.id} labelledBy={TITLE_ID} className="bg-white">
-      <div className="mb-12 flex flex-col gap-4 border-l-4 border-accent pl-6 md:mb-16">
-        <h2 id={TITLE_ID} className="text-h2 text-ink">
-          {arrangements.title}
-        </h2>
-        <p className="max-w-prose whitespace-pre-line text-body text-muted">
-          {arrangements.description}
-        </p>
+    <section
+      id={arrangements.id}
+      aria-labelledby={TITLE_ID}
+      tabIndex={-1}
+      className="bg-white"
+    >
+      <div className="section-x mx-auto max-w-content pt-16 pb-10 md:pt-24 md:pb-14">
+        <div className="flex flex-col gap-4 border-l-4 border-accent pl-6">
+          <h2 id={TITLE_ID} className="text-h2 text-ink">
+            {arrangements.title}
+          </h2>
+          <p className="max-w-prose whitespace-pre-line text-body text-muted">
+            {arrangements.description}
+          </p>
+        </div>
       </div>
-      <ul className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-x-8 md:gap-y-10">
+
+      <ul
+        className="grid w-full grid-cols-1 gap-0 md:grid-cols-4"
+        aria-label="Categorias de produtos"
+      >
         {arrangements.items.map((item) => {
           const image = item.image as ImageAsset;
           const blurDataURL = image.blurDataURL;
 
           return (
-            <li
-              key={item.title}
-              className="group grid grid-cols-[minmax(0,36%)_minmax(0,1fr)] items-stretch gap-3 sm:gap-4"
-            >
-              <div
-                className={`woven-border relative ${IMAGE_HEIGHT_CLASS} w-full overflow-hidden`}
+            <li key={item.title} className="relative min-w-0">
+              {/*
+                Mobile: near-square. md+: tall panels that together fill the viewport width.
+              */}
+              <Link
+                href={getWhatsAppUrl(enquireMessage(item.title))}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={cardLabel(item.title, item.description)}
+                className="group relative block aspect-[5/4] overflow-hidden focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent md:aspect-[3/5] lg:aspect-[2/5] lg:min-h-[28rem]"
               >
                 <Image
                   src={image.src}
-                  alt={image.alt}
+                  alt=""
                   fill
-                  sizes="(max-width: 767px) 36vw, (max-width: 1280px) 18vw, 190px"
+                  sizes="(max-width: 767px) 100vw, 25vw"
                   placeholder={blurDataURL ? "blur" : "empty"}
                   blurDataURL={blurDataURL}
-                  className="object-cover transition-transform duration-500 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 group-focus-visible:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100 motion-reduce:group-focus-visible:scale-100"
                 />
-              </div>
-              <div
-                className={`flex ${IMAGE_HEIGHT_CLASS} flex-col justify-center gap-2 py-3 pr-1`}
-              >
-                <h3 className="font-heading text-[1.375rem] leading-tight font-semibold text-jungle sm:text-[1.625rem]">
-                  {item.title}
-                </h3>
-                <p className="whitespace-pre-line text-body text-muted">{item.description}</p>
-                <Link
-                  href={getWhatsAppUrl(enquireMessage(item.title))}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={externalLinkLabel(`Encomendar ${item.title} pelo WhatsApp`)}
-                  className="mt-0.5 w-fit rounded-soft text-sm font-semibold tracking-wide text-accent-deep uppercase hover:text-leaf focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf"
-                >
-                  Encomendar
-                </Link>
-              </div>
+
+                {/* Shared gold wash along the bottom — connects the four panels */}
+                <div
+                  className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[42%] bg-linear-to-t from-accent-deep/95 via-accent/55 to-transparent transition-opacity duration-300 group-hover:opacity-0 group-focus-visible:opacity-0 motion-reduce:transition-none md:h-[36%]"
+                  aria-hidden="true"
+                />
+
+                {/* Hover/focus top wash for readable copy */}
+                <div
+                  className="pointer-events-none absolute inset-0 z-10 bg-linear-to-b from-jungle/90 via-jungle/55 to-jungle/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
+                  aria-hidden="true"
+                />
+
+                <div className="absolute inset-0 z-20 flex flex-col p-4 sm:p-5 md:p-5 lg:p-6">
+                  <h3
+                    className="font-heading mt-auto text-[1.25rem] leading-tight font-semibold text-white drop-shadow-sm transition-[margin,transform,color] duration-300 ease-out group-hover:mt-0 group-hover:translate-y-0 group-focus-visible:mt-0 motion-reduce:transition-none sm:text-[1.375rem] md:text-[1.25rem] lg:text-[1.5rem]"
+                  >
+                    {item.title}
+                  </h3>
+
+                  <div
+                    className="grid grid-rows-[0fr] opacity-0 transition-[grid-template-rows,opacity,margin] duration-300 ease-out group-hover:mt-3 group-hover:grid-rows-[1fr] group-hover:opacity-100 group-focus-visible:mt-3 group-focus-visible:grid-rows-[1fr] group-focus-visible:opacity-100 motion-reduce:transition-none"
+                  >
+                    <div className="overflow-hidden">
+                      <p className="whitespace-pre-line text-sm leading-relaxed text-white/90 sm:text-[0.95rem]">
+                        {item.description}
+                      </p>
+                      <span className="mt-3 inline-block text-sm font-semibold tracking-wide text-clay uppercase transition-colors duration-150 group-hover:text-leaf group-focus-visible:text-leaf">
+                        Encomendar
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </Link>
             </li>
           );
         })}
       </ul>
-    </Section>
+    </section>
   );
 }
