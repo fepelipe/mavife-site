@@ -52,7 +52,7 @@ export const faqs = [
   {
     question: "Quais peças vocês criam?",
     answer:
-      "Centros de mesa, vasos e vasinhos, hidroponia, kokedamas e composições sob medida para casa, escritório e presentes.",
+      "Centros de mesa, hidroponia, kokedamas, vasos e composições sob medida para casa, escritório e presentes.",
   },
   {
     question: "As plantas exigem muita manutenção?",
@@ -75,7 +75,7 @@ export const siteContent = {
     eyebrow: "Manaus, AM",
     title: "Flora amazônica, da nossa casa para a sua",
     description:
-      "Centros de mesa, vasos decorativos, hidroponia e kokedamas. Composições artesanais que trazem a floresta para dentro de casa, com delicadeza e cuidado.",
+      "Centros de mesa, hidroponia, kokedamas e vasos. Composições artesanais que trazem a floresta para dentro de casa, com delicadeza e cuidado.",
     cta: {
       label: "Encomendar pelo WhatsApp",
       href: getWhatsAppUrl("Olá! Gostaria de saber mais sobre os produtos disponíveis no atelier."),
@@ -84,7 +84,7 @@ export const siteContent = {
   },
   arrangements: {
     id: "pecas",
-    title: "O que oferecemos",
+    title: "Os nossos produtos",
     description:
       "Cada peça é idealizada, montada e finalizada no atelier, fazendo com que cada produto seja único. Verifique a disponibilidade ou encomende pelo WhatsApp.",
     items: [
@@ -101,7 +101,13 @@ export const siteContent = {
         image: images.arrangementHydroponic,
       },
       {
-        title: "Vasos e vasinhos",
+        title: "Kokedamas",
+        description:
+          "Arranjos produzidos a partir da técnica japonesa, pendentes ou sobre uma base.\nDiferente e milenar.",
+        image: images.arrangementKokedama,
+      },
+      {
+        title: "Vasos",
         description:
           "Variedade de formas e tamanhos, desde a mesa de cabeceira até a varanda.\nNatural e essencial.",
         image: images.arrangementPots,
