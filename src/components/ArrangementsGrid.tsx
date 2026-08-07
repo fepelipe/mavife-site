@@ -8,10 +8,17 @@ import type { ImageAsset } from "@/lib/types";
 const TITLE_ID = "pecas-heading";
 
 /**
- * Copy block height drives image aspect on md+:
- * title (~30px) + description (~3 lines) + second line + Encomendar + py-3 ≈ 180px.
- * At ~2-col width, aspect 4/3 keeps cards balanced without excess CLS.
+ * Image height is locked to the copy stack:
+ * py-3 (24) + title ~1.625rem/1.2 (~31) + gaps (16) +
+ * description ~3 body lines (~84) + Encomendar (~24) ≈ 180px → 11.5rem.
+ * Title bumped to 1.625rem; "Centros de mesa" still fits one line in the copy column.
  */
+const IMAGE_HEIGHT_CLASS = "h-[11.5rem]";
+
+function enquireMessage(title: string) {
+  return `Olá! Tenho interesse em ${title.toLowerCase()}. O que tem disponível?`;
+}
+
 export function ArrangementsGrid() {
   const { arrangements } = siteContent;
 
@@ -25,33 +32,42 @@ export function ArrangementsGrid() {
           {arrangements.description}
         </p>
       </div>
-      <ul className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-x-8 md:gap-y-12">
+      <ul className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-x-8 md:gap-y-10">
         {arrangements.items.map((item) => {
           const image = item.image as ImageAsset;
           const blurDataURL = image.blurDataURL;
 
           return (
-            <li key={item.title} className="group flex h-full flex-col">
-              <div className="woven-border relative aspect-4/5 overflow-hidden md:aspect-4/3">
+            <li
+              key={item.title}
+              className="group grid grid-cols-[minmax(0,36%)_minmax(0,1fr)] items-stretch gap-3 sm:gap-4"
+            >
+              <div
+                className={`woven-border relative ${IMAGE_HEIGHT_CLASS} w-full overflow-hidden`}
+              >
                 <Image
                   src={image.src}
                   alt={image.alt}
                   fill
-                  sizes="(max-width: 767px) 100vw, (max-width: 1280px) 50vw, 520px"
+                  sizes="(max-width: 767px) 36vw, (max-width: 1280px) 18vw, 190px"
                   placeholder={blurDataURL ? "blur" : "empty"}
                   blurDataURL={blurDataURL}
                   className="object-cover transition-transform duration-500 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                 />
               </div>
-              <div className="flex flex-col gap-2 px-1 py-3">
-                <h3 className="text-h3 text-jungle">{item.title}</h3>
+              <div
+                className={`flex ${IMAGE_HEIGHT_CLASS} flex-col justify-center gap-2 py-3 pr-1`}
+              >
+                <h3 className="font-heading text-[1.375rem] leading-tight font-semibold text-jungle sm:text-[1.625rem]">
+                  {item.title}
+                </h3>
                 <p className="whitespace-pre-line text-body text-muted">{item.description}</p>
                 <Link
-                  href={getWhatsAppUrl(`Olá! Tenho interesse na peça "${item.title}".`)}
+                  href={getWhatsAppUrl(enquireMessage(item.title))}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={externalLinkLabel(`Encomendar ${item.title} pelo WhatsApp`)}
-                  className="mt-1 w-fit rounded-soft text-sm font-semibold tracking-wide text-accent-deep uppercase hover:text-leaf focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf"
+                  className="mt-0.5 w-fit rounded-soft text-sm font-semibold tracking-wide text-accent-deep uppercase hover:text-leaf focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf"
                 >
                   Encomendar
                 </Link>
