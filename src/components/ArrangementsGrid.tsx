@@ -8,7 +8,7 @@ const TITLE_ID = "pecas-heading";
 
 /**
  * Full-bleed strip height in vh — under 50vh so panels stay wide, not tall.
- * 36 / 40 leaves room for title + short copy without dominating the page.
+ * Near-square panels match the square product crops.
  */
 const STRIP_HEIGHT = "h-[36vh] md:h-[40vh]";
 
@@ -31,8 +31,8 @@ export function ArrangementsGrid() {
       tabIndex={-1}
       className="bg-white"
     >
-      <div className="section-x mx-auto max-w-content pt-16 pb-10 md:pt-24 md:pb-14">
-        <div className="flex flex-col gap-4 border-l-4 border-accent pl-6">
+      <div className="section-x mx-auto max-w-content pt-16 pb-8 md:pt-24 md:pb-10">
+        <div className="flex flex-col gap-3 border-l-4 border-accent pl-6 md:gap-4">
           <h2 id={TITLE_ID} className="text-h2 text-ink">
             {arrangements.title}
           </h2>
@@ -43,15 +43,20 @@ export function ArrangementsGrid() {
       </div>
 
       <ul
-        className="grid w-full grid-cols-1 gap-0 md:grid-cols-4"
+        className="m-0 grid w-full list-none grid-cols-1 gap-0 p-0 leading-none md:grid-cols-4"
         aria-label="Categorias de produtos"
       >
-        {arrangements.items.map((item) => {
+        {arrangements.items.map((item, index) => {
           const image = item.image as ImageAsset;
           const blurDataURL = image.blurDataURL;
+          // First two tiles are often in the initial viewport on desktop.
+          const prioritize = index < 2;
 
           return (
-            <li key={item.title} className={`relative min-h-0 min-w-0 ${STRIP_HEIGHT}`}>
+            <li
+              key={item.title}
+              className={`relative m-0 min-h-0 min-w-0 leading-none ${STRIP_HEIGHT}`}
+            >
               <Link
                 href={getWhatsAppUrl(enquireMessage(item.title))}
                 target="_blank"
@@ -63,34 +68,32 @@ export function ArrangementsGrid() {
                   src={image.src}
                   alt=""
                   fill
-                  quality={95}
-                  sizes="(max-width: 767px) 100vw, 40vw"
+                  priority={prioritize}
+                  quality={90}
+                  sizes="(max-width: 767px) 100vw, 25vw"
                   placeholder={blurDataURL ? "blur" : "empty"}
                   blurDataURL={blurDataURL}
-                  style={
-                    image.objectPosition
-                      ? { objectPosition: image.objectPosition }
-                      : undefined
-                  }
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] group-focus-visible:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100 motion-reduce:group-focus-visible:scale-100"
+                  className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03] group-focus-visible:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100 motion-reduce:group-focus-visible:scale-100"
                 />
 
-                {/* Instagram-like dim — full card darkens on hover/focus */}
+                {/*
+                  Hover dim — top stays lighter, bottom darker for contrast
+                  (same idea as the Instagram mosaic overlay).
+                */}
                 <div
-                  className="pointer-events-none absolute inset-0 z-10 bg-ink/0 transition-colors duration-300 ease-out group-hover:bg-ink/45 group-focus-visible:bg-ink/45 motion-reduce:transition-none"
+                  className="pointer-events-none absolute inset-0 z-10 bg-linear-to-t from-ink/80 via-ink/35 to-ink/10 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
                   aria-hidden="true"
                 />
 
-                {/* Gold wash — bottom quarter only, for title contrast */}
+                {/* Gold wash — bottom quarter only, always on for title contrast */}
                 <div
-                  className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-1/4 bg-linear-to-t from-accent-deep/90 via-accent/35 to-transparent"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-1/4 bg-linear-to-t from-accent-deep/90 via-accent/40 to-transparent"
                   aria-hidden="true"
                 />
 
                 {/*
                   Stack: title, then description + Encomendar under it.
-                  Resting state peeks only the headline; hover lifts the whole
-                  stack just enough for copy + CTA to sit under the title.
+                  Resting state peeks the headline; hover lifts the stack.
                 */}
                 <div className="absolute inset-x-0 bottom-0 z-20 p-3 sm:p-4">
                   <div className="overflow-hidden">
@@ -100,10 +103,10 @@ export function ArrangementsGrid() {
                       <h3 className="font-heading text-[1.45rem] leading-tight font-semibold text-white drop-shadow-sm sm:text-[1.7rem]">
                         {item.title}
                       </h3>
-                      <p className="whitespace-pre-line text-sm leading-snug text-white/90 sm:text-[0.95rem]">
+                      <p className="whitespace-pre-line text-sm leading-snug text-white/95 sm:text-[0.95rem]">
                         {item.description}
                       </p>
-                      <span className="text-sm font-semibold tracking-wide text-accent uppercase">
+                      <span className="text-sm font-semibold tracking-wide text-[#d4af37] uppercase drop-shadow-sm">
                         Encomendar
                       </span>
                     </div>

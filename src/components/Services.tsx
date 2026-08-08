@@ -7,7 +7,7 @@ export function Services() {
   const { services } = siteContent;
 
   return (
-    <Section id={services.id} labelledBy={TITLE_ID} className="bg-jungle text-white">
+    <Section id={services.id} labelledBy={TITLE_ID} className="bg-jungle text-white mt-0">
       <h2 id={TITLE_ID} className="text-h2 mb-12 text-clay md:mb-16">
         {services.title}
       </h2>
