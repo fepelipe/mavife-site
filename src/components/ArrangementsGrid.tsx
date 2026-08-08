@@ -67,26 +67,40 @@ export function ArrangementsGrid() {
                   sizes="(max-width: 767px) 100vw, 40vw"
                   placeholder={blurDataURL ? "blur" : "empty"}
                   blurDataURL={blurDataURL}
+                  style={
+                    image.objectPosition
+                      ? { objectPosition: image.objectPosition }
+                      : undefined
+                  }
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] group-focus-visible:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100 motion-reduce:group-focus-visible:scale-100"
                 />
 
-                {/* Gold wash — stays at the bottom; slightly taller when open */}
+                {/* Instagram-like dim — full card darkens on hover/focus */}
                 <div
-                  className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[48%] bg-linear-to-t from-accent-deep/95 via-accent/45 to-transparent transition-[height] duration-300 ease-out group-hover:h-[62%] group-focus-visible:h-[62%] motion-reduce:transition-none"
+                  className="pointer-events-none absolute inset-0 z-10 bg-ink/0 transition-colors duration-300 ease-out group-hover:bg-ink/45 group-focus-visible:bg-ink/45 motion-reduce:transition-none"
+                  aria-hidden="true"
+                />
+
+                {/* Gold wash — bottom quarter only, for title contrast */}
+                <div
+                  className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-1/4 bg-linear-to-t from-accent-deep/90 via-accent/35 to-transparent"
                   aria-hidden="true"
                 />
 
                 {/*
-                  Title stays anchored at the bottom.
-                  Description + Encomendar slide up from below the panel edge —
-                  only far enough to sit above the title, not to the top.
+                  Stack: title, then description + Encomendar under it.
+                  Resting state peeks only the headline; hover lifts the whole
+                  stack just enough for copy + CTA to sit under the title.
                 */}
-                <div className="absolute inset-x-0 bottom-0 z-20 flex flex-col justify-end p-4 sm:p-5">
+                <div className="absolute inset-x-0 bottom-0 z-20 p-3 sm:p-4">
                   <div className="overflow-hidden">
                     <div
-                      className="flex translate-y-full flex-col gap-2 pb-2 transition-transform duration-300 ease-out group-hover:translate-y-0 group-focus-visible:translate-y-0 motion-reduce:translate-y-0 motion-reduce:transition-none"
+                      className="flex translate-y-[calc(100%-1.85rem)] flex-col gap-1.5 transition-transform duration-300 ease-out group-hover:translate-y-0 group-focus-visible:translate-y-0 motion-reduce:translate-y-0 motion-reduce:transition-none sm:translate-y-[calc(100%-2.1rem)]"
                     >
-                      <p className="whitespace-pre-line text-sm leading-relaxed text-white/90 sm:text-[0.95rem]">
+                      <h3 className="font-heading text-[1.45rem] leading-tight font-semibold text-white drop-shadow-sm sm:text-[1.7rem]">
+                        {item.title}
+                      </h3>
+                      <p className="whitespace-pre-line text-sm leading-snug text-white/90 sm:text-[0.95rem]">
                         {item.description}
                       </p>
                       <span className="text-sm font-semibold tracking-wide text-accent uppercase">
@@ -94,9 +108,6 @@ export function ArrangementsGrid() {
                       </span>
                     </div>
                   </div>
-                  <h3 className="font-heading text-[1.2rem] leading-tight font-semibold text-white drop-shadow-sm sm:text-[1.35rem]">
-                    {item.title}
-                  </h3>
                 </div>
               </Link>
             </li>
