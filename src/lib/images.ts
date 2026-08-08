@@ -43,6 +43,13 @@ export const images = {
       width: 388,
       height: 54,
     },
+    /** Combined menu lockup: plant + name + tagline on transparent background. */
+    menuLockup: {
+      src: "/images/mavife-menu-lockup.png",
+      alt: "Mavife Atelier Verde",
+      width: 1509,
+      height: 512,
+    },
   },
   og: {
     src: "/images/og-mavife.jpg",
