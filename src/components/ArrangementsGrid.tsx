@@ -29,7 +29,7 @@ export function ArrangementsGrid() {
       id={arrangements.id}
       aria-labelledby={TITLE_ID}
       tabIndex={-1}
-      className="bg-white"
+      className="bg-white outline-none focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent"
     >
       <div className="section-x mx-auto max-w-content pt-16 pb-8 md:pt-24 md:pb-10">
         <div className="flex flex-col gap-3 border-l-4 border-accent pl-6 md:gap-4">
