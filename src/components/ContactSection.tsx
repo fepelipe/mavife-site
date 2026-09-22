@@ -13,7 +13,7 @@ export function ContactSection() {
       id={contact.id}
       aria-labelledby={TITLE_ID}
       tabIndex={-1}
-      className="section-y bg-cover bg-center"
+      className="section-y bg-cover bg-center outline-none focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent"
       style={{
         backgroundImage: `url(${images.brand.background.src})`,
       }}
