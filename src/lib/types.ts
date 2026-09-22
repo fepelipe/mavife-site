@@ -9,6 +9,8 @@ export type ImageAsset = {
   width?: number;
   height?: number;
   blurDataURL?: string;
+  /** CSS object-position for cover crops (e.g. "center 70%"). */
+  objectPosition?: string;
 };
 
 

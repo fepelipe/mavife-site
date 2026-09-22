@@ -20,7 +20,7 @@ export async function InstagramFeed() {
       id="instagram"
       aria-labelledby={TITLE_ID}
       tabIndex={-1}
-      className="bg-surface"
+      className="bg-surface outline-none focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent"
     >
       {/* Section rhythm before the mosaic; no padding after the grid. */}
       <div className="section-x mx-auto flex max-w-content flex-col gap-4 pt-16 pb-10 md:flex-row md:items-end md:justify-between md:pt-24 md:pb-14">

@@ -1,3 +1,6 @@
+/** Canonical production host (www). Apex redirects here on Vercel. */
+export const CANONICAL_SITE_HOST = "www.mavife.com.br";
+
 /**
  * Prefer the canonical production URL for SEO outputs (sitemap, OG, JSON-LD).
  * Preview deployments should set NEXT_PUBLIC_SITE_URL when indexing matters.
@@ -15,5 +18,5 @@ export function getSiteUrl() {
     return `https://${process.env.VERCEL_URL.replace(/\/$/, "")}`;
   }
 
-  return "https://mavife.vercel.app";
+  return `https://${CANONICAL_SITE_HOST}`;
 }
